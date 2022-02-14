@@ -1,0 +1,2406 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_webLayouts.cshtml";
+}
+@using System.Data;
+@model DataSet
+<style>
+    .body {
+        background-color: white;
+    }
+
+    .single-categories-item {
+        border: 1px solid #ebebeb;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        text-align: center;
+        padding: 26px 11px;
+    }
+
+    .cat-item-image {
+        margin-bottom: 35px;
+    }
+
+    .categories-title {
+        position: relative;
+        margin: 0;
+    }
+
+    h6 {
+        color: #242424;
+        font-weight: 500;
+        text-transform: capitalize;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .single-categories-item p {
+        filter: alpha(opacity=0);
+        opacity: 0;
+        color: #777;
+        font-size: .8571em;
+    }
+
+    .single-categories-item :hover {
+        border: 2px solid $theme-color;
+    }
+
+    .categories-title h6 {
+        color: #80bb01;
+        padding-bottom: 20px;
+    }
+
+    .categories-title p {
+        filter: alpha(opacity=100);
+        opacity: 1;
+    }
+
+    <style > .zoom {
+        padding: 50px;
+        transition: transform .2s; /* Animation */
+        margin: 0 auto;
+    }
+
+    .zoom:hover {
+        transition: transform .2s;
+        transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
+
+
+    .owl-carousel .owl-item img {
+        display: block;
+        width: 17%;
+        float: left;
+        border: 5px solid #fff;
+        border-radius: 20px;
+        margin-left: 54px;
+        margin-right: 35px;
+        margin-top: 15px;
+    }
+
+    .testimonial-item.equal-height.style-6 {
+        background-color: #eee;
+        border-radius: 10px;
+        margin: 10px;
+    }
+
+    .cell-right {
+        text-align: center;
+        margin-right: 80px;
+        padding-top: 35px;
+        padding-bottom: 20px;
+    }
+
+    .testimonial-name {
+        font-weight: 600;
+    }
+
+    .testimonial-content.quote {
+        padding: 17px 55px;
+    }
+
+    .et_right_sidebar #main-content .container:before {
+        display: none;
+    }
+
+    #main-content .container {
+        padding-top: 10px;
+    }
+
+    i.fa.fa-quote-left {
+        padding: 0px 10px;
+        color: #999;
+    }
+</style>
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://jqueryui.com//resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#testimonial-slider").owlCarousel({
+            items: 2,
+            itemsDesktop: [1000, 2],
+            itemsDesktopSmall: [980, 1],
+            itemsTablet: [768, 1],
+            pagination: true,
+            navigation: true,
+            navigationText: ["<", ">"],
+            autoPlay: true
+        });
+    })
+
+</script>
+;
+@*<script>
+        $(function () {
+
+            $.ajax({
+                url: "@Url.Action("Searchdata", "web")",
+                method: "POST",
+                data: { value :$('')}
+
+            })
+            var availableTags = [
+              "ActionScript",
+              "AppleScript",
+              "Asp",
+              "BASIC",
+              "C",
+              "C++",
+              "Clojure",
+              "COBOL",
+              "ColdFusion",
+              "Erlang",
+              "Fortran",
+              "Groovy",
+              "Haskell",
+              "Java",
+              "JavaScript",
+              "Lisp",
+              "Perl",
+              "PHP",
+              "Python",
+              "Ruby",
+              "Scala",
+              "Scheme"
+            ];
+
+
+
+            $("#search").autocomplete({
+                source: availableTags
+            });
+        });
+    </script>*@
+
+<script>
+    function addtocard(productid, qty) {
+        $.ajax({
+            url: "@Url.Action("Addtocart", "Customer")",
+            method: "POST",
+            data: { productid: productid, qty: qty },
+            success: function (r) {
+                alert('Product Add Successfully ! ! !')
+                window.location.reload(true);
+            },
+            error: function (r) {
+                alert('Error');
+
+            }
+        })
+    }
+
+
+    function addtocard(productid, qty) {
+        debugger;
+        $.ajax({
+            url: "@Url.Action("Addtocart", "Customer")",
+            method: "POST",
+            data: { productid: productid, qty: qty },
+            success: function (r) {
+                alert('Card Add Successfully ! ! !')
+                window.location.reload(true);
+                // alert('ok')
+                // $('#pview').load();
+                $("#pview").load("P_Addtocard", "Customer");
+                // window.location.href = '@Url.Action("P_Addtocard", "Customer")';
+                //$("#content").load(href, function();
+
+
+            },
+            error: function (r) {
+                alert('Error');
+
+            }
+        })
+    }
+
+    function addtocard2(productid, qty) {
+        debugger;
+        $.ajax({
+            url: "@Url.Action("Addtocart", "Customer")",
+            method: "POST",
+            data: { productid: productid, qty: qty },
+            success: function (r) {
+                //$("#content").load(href, function();
+                alert('successfully added to your cart');
+                window.location.href = "../Web/CheckoutProduct"
+            },
+            error: function (r) {
+                alert('Error');
+
+            },
+        })
+    };
+</script>
+@*@Html.Action("PartialFormodal", "web")*@
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="body-content outer-top-xs" id="top-banner-and-menu">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- ============================================== SIDEBAR ============================================== -->
+            <!-- /.sidemenu-holder -->
+            <!-- ============================================== SIDEBAR : END ============================================== -->
+            <!-- ============================================== CONTENT ============================================== -->
+            <div class="col-xs-12 col-sm-12 col-md-12 homebanner-holder" style="background-color:#e9e6e1">
+                <!-- ========================================== SECTION – HERO ========================================= -->
+                @*<input type="text" id="search" class="form-control" />*@
+
+                <div id="hero">
+                    <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+
+                        @if (Model.Tables[6] != null && Model.Tables[6].Rows.Count > 0)
+                        {
+                            foreach (DataRow item in Model.Tables[6].Rows)
+                            {
+
+                                <div class="item" style="background-image: url('/OfferImage/@item["OfferImage"]');">
+                                    <div class="container-fluid">
+                                        <div class="caption bg-color vertical-center text-left">
+                                            @*<div class="slider-header fadeInDown-1" style="color:white">Top Brands</div>*@
+                                            <div class="big-text fadeInDown-1" style="color:white;"> @item["OfferName"] </div>
+                                            <div class="excerpt fadeInDown-2 hidden-xs"> <span style="color:white">@*Lorem ipsum dolor sit amet, consectetur adipisicing elit.*@</span> </div>
+                                            <div class="button-holder fadeInDown-3"> <a href="../Product/ShowOfferDetails?orderid=@item["offerdid"]" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a> </div>
+                                        </div>
+                                        <!-- /.caption -->
+                                    </div>
+                                    <!-- /.container-fluid -->
+                                </div>
+                            }
+                        }
+
+                        <!-- /.item -->
+
+
+
+                    </div>
+                    <!-- /.owl-carousel -->
+                </div>
+
+                <!-- ========================================= SECTION – HERO : END ========================================= -->
+                <!-- ============================================== INFO BOXES ============================================== -->
+                <div class="info-boxes wow fadeInUp">
+                    @*<div class="info-boxes-inner">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-4 col-lg-4">
+                                    <div class="info-box">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4 class="info-box-heading green">money back</h4>
+                                            </div>
+                                        </div>
+                                        <h6 class="text">30 Days Money Back Guarantee</h6>
+                                    </div>
+                                </div>
+                                <!-- .col -->
+
+                                <div class="hidden-md col-sm-4 col-lg-4">
+                                    <div class="info-box">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4 class="info-box-heading green">free shipping</h4>
+                                            </div>
+                                        </div>
+                                        <h6 class="text">Shipping on orders over Rs. 99</h6>
+                                    </div>
+                                </div>
+                                <!-- .col -->
+
+                                <div class="col-md-6 col-sm-4 col-lg-4">
+                                    <div class="info-box">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h4 class="info-box-heading green">Special Sale</h4>
+                                            </div>
+                                        </div>
+                                        <h6 class="text">Extra 5% off on all items </h6>
+                                    </div>
+                                </div>
+
+                                <!-- .col -->
+                            </div>
+                            <br />
+                            <!-- /.row -->
+                        </div>*@
+                    <!-- /.info-boxes-inner -->
+
+                </div>
+                <!-- /.info-boxes -->
+                <!-- ============================================== INFO BOXES : END ============================================== -->
+                <div class="clearfix"></div>
+                <br />
+
+                <div class="col-md-3">
+
+                    <div class="col-sm-12">
+
+                        <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+                            <h3 class="section-title">New Offer</h3>
+                            <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+                                @if (Model.Tables[3] != null)
+                                {
+
+                                    foreach (DataRow item in Model.Tables[3].Rows)
+                                    {
+
+                                        <div class="item">
+                                            <div class="products">
+                                                <div class="hot-deal-wrapper">
+                                                    <div class="image">
+
+                                                        <img src="../ProductImages/@item["MainImgFile"]" style="margin-left: -16px;" />
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.hot-deal-wrapper -->
+
+                                                <div class="product-info text-left m-t-20">
+                                                    <h3 class="name"><a href="javscript:void(0)">@item["ProductTitle"]</a></h3>
+                                                    <div class="rating rateit-small"></div>
+                                                    <div class="product-price"> <span class="price"> Rs.@item["SaleRate"] </span> <span class="price-before-discount">Rs. @item["ProductMRP"]</span> </div>
+                                                    <!-- /.product-price -->
+
+                                                </div>
+                                                <!-- /.product-info -->
+                                                <div class="cart clearfix animate-effect">
+                                                    <div class="action">
+                                                        <div class="add-cart-button btn-group">
+                                                            <button onclick="addtocard('@item["ProductCode"]','1')" class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                            <button class="btn btn-primary cart-btn" onclick="addtocard('@item["ProductCode"]','1')" type="button">Add to cart</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.action -->
+                                                </div>
+                                                <!-- /.cart -->
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <!-- /.sidebar-widget -->
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-sm-12">
+
+                        <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+                            <h3 class="section-title">New Offer</h3>
+                            <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+                                @if (Model.Tables[4] != null)
+                                {
+
+                                    foreach (DataRow item in Model.Tables[4].Rows)
+                                    {
+
+                                        <div class="item">
+                                            <div class="products">
+                                                <div class="hot-deal-wrapper">
+                                                    <div class="image">
+
+                                                        <img src="../ProductImages/@item["MainImgFile"]" style="margin-left: -16px;" />
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.hot-deal-wrapper -->
+
+                                                <div class="product-info text-left m-t-20">
+                                                    <h3 class="name"><a href="javascript:void(0)">@item["ProductTitle"]</a></h3>
+                                                    <div class="rating rateit-small"></div>
+                                                    <div class="product-price"> <span class="price"> Rs.@item["SaleRate"] </span> <span class="price-before-discount">Rs. @item["ProductMRP"]</span> </div>
+                                                    <!-- /.product-price -->
+
+                                                </div>
+                                                <!-- /.product-info -->
+                                                <div class="cart clearfix animate-effect">
+                                                    <div class="action">
+                                                        <div class="add-cart-button btn-group">
+                                                            <button class="btn btn-primary icon" onclick="addtocard('@item["ProductCode"]','1')" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                            <button class="btn btn-primary cart-btn" onclick="addtocard('@item["ProductCode"]','1')" type="button">Add to cart</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.action -->
+                                                </div>
+                                                <!-- /.cart -->
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <!-- /.sidebar-widget -->
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- ============================================== HOT DEALS ============================================== -->
+                <!-- ============================================== HOT DEALS: END ============================================== -->
+                <div class="col-sm-9">
+                    <div class="categories-item-warap section-pt-30 section-pb">
+                        <div class="container-fluid">
+                            <div class="row">
+                                @if (Model.Tables[0].Rows != null)
+                                {
+                                    foreach (DataRow item in Model.Tables[0].Rows)
+                                    {
+                                        <div class="col-lg-3 col-md-5 col-sm-5 col-6 card">
+                                            <!-- single-categories-item Start -->
+                                            <div class="single-categories-item mt-30" style="background:white">
+                                                <div class="cat-item-image" style="margin-bottom: 10px;">
+                                                    @*<a href="@Html.ActionLink("","ProduceCategoryWise",new { id=@item[""]})">*@
+                                                    <a href="../Product/Categorywiseproduct?id=@item["CategoryId"]">
+                                                        <img src="~/categorydoc/@item["Cat_Image"]" alt="" style="height:110px;">
+
+                                                    </a>
+                                                </div>
+                                                <div class="categories-title">
+                                                    <h4><a href="../Product/Categorywiseproduct?id=@item["CategoryId"]"><b>@item["CategoryName"]</b></a></h4>
+                                                    @*<p>11 products</p>*@
+                                                </div>
+                                            </div>
+                                            <!-- single-categories-item End -->
+                                        </div>
+                                    }
+                                }
+
+                                @*<div class="col-lg-3 col-md-5 col-sm-5 col-6">
+                                        <!-- single-categories-item Start -->
+                                        <div class="single-categories-item mt-30" style="background:white">
+                                            <div class="cat-item-image">
+                                                <a href="#">
+
+                                                    <img src="~/WebAssets/assets/category/category-thumb-2.jpg" />
+                                                </a>
+                                            </div>
+                                            <div class="categories-title">
+                                                <h6><a href="#">Ocean Foods</a></h6>
+                                                <p>07 products</p>
+                                            </div>
+                                        </div>
+                                        <!-- single-categories-item End -->
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 col-sm-5 col-6">
+                                        <!-- single-categories-item Start -->
+                                        <div class="single-categories-item mt-30" style="background:white">
+                                            <div class="cat-item-image">
+                                                <a href="#">
+                                                    <img src="~/WebAssets/assets/category/category-thumb-3.jpg" /></a>
+                                            </div>
+                                            <div class="categories-title">
+                                                <h6><a href="#">Organic Fruits</a></h6>
+                                                <p>11 products</p>
+                                            </div>
+                                        </div>
+                                        <!-- single-categories-item End -->
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 col-sm-5 col-6">
+                                        <!-- single-categories-item Start -->
+                                        <div class="single-categories-item mt-30" style="background:white">
+                                            <div class="cat-item-image">
+                                                <a href="#">
+                                                    <img src="~/WebAssets/assets/category/category-thumb-4.jpg" />
+                                                </a>
+                                            </div>
+                                            <div class="categories-title">
+                                                <h6><a href="#">Fast Foods</a></h6>
+                                                <p>05 products</p>
+                                            </div>
+                                        </div>
+                                        <!-- single-categories-item End -->
+                                    </div>*@
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
+                                <div class="more-info-tab clearfix ">
+                                    <h3 class="new-product-title pull-left">My Product</h3>
+                                    @*<ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
+                                            <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">All</a></li>
+                                            <li><a data-transition-type="backSlide" href="#smartphone" data-toggle="tab">Clothing</a></li>
+                                            <li><a data-transition-type="backSlide" href="#laptop" data-toggle="tab">Electronics</a></li>
+                                            <li><a data-transition-type="backSlide" href="#apple" data-toggle="tab">Shoes</a></li>
+                                        </ul>*@
+                                    <!-- /.nav-tabs -->
+                                </div>
+                                <div class="tab-content outer-top-xs">
+                                    <div class="tab-pane in active" id="all">
+                                        <div class="product-slider">
+                                            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+                                                @if (Model.Tables[1] != null)
+                                                {
+                                                    foreach (DataRow item in Model.Tables[1].Rows)
+                                                    {
+                                                        <div class="item item-carousel">
+                                                            <div class="products">
+
+                                                                <div class="product">
+                                                                    <div class="product-image">
+                                                                        <div class="image">
+                                                                            <a href="../Product/ProductDetails?id=@item["ProductCode"]">
+                                                                                <img src="@item["Path"]" alt="" style="width: 199px;margin-left: -5px;">
+                                                                            </a>
+                                                                        </div>
+                                                                        <!-- /.image -->
+
+                                                                        <div class="tag new"><span>new</span></div>
+                                                                    </div>
+                                                                    <!-- /.product-image -->
+
+                                                                    <div class="product-info text-left">
+                                                                        <h3 class="name"><a href="javascript:void(0);">@item["ProductTitle"]</a></h3>
+                                                                        <div class="rating rateit-small"></div>
+                                                                        <div class="description"></div>
+                                                                        <div class="product-price"> <span class="price"> Rs. @item["SaleRate"] </span> <span class="price-before-discount">Rs. @item["ProductMRP"]</span> </div>
+                                                                        <!-- /.product-price -->
+                                                                    </div>
+
+                                                                    <!-- /.product-info -->
+                                                                    <div class="cart clearfix animate-effect">
+                                                                        @*<div class="action">
+                                                                                <ul class="list-unstyled">
+                                                                                    <li class="add-cart-button btn-group">
+                                                                                        <button data-toggle="tooltip" class="btn btn-primary icon" onclick="addtocard('@item["ProductCode"]','1')" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                        <button class="btn btn-primary" onclick="addtocard('@item["ProductCode"]','1')" type="button">Add to cart</button>
+                                                                                    </li>
+                                                                                    <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                                        <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                                </ul>
+                                                                            </div>*@
+                                                                        <!-- /.action -->
+
+                                                                        <div class="action" style="margin-left:-32px;">
+                                                                            <ul class="list-unstyled">
+                                                                                <li class="add-cart-button btn-group open">
+                                                                                    <button class="btn btn-primary icon" onclick="addtocard('@item["ProductCode"]','1')" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                    <button class="btn btn-primary cart-btn" onclick="addtocard('@item["ProductCode"]','1')" type="button">Add to cart</button>
+                                                                                </li>
+                                                                                <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0)" title="Add to Cart"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                                <li class="lnk"> <a class="add-to-cart" onclick="addtocard2('@item["ProductCode"]','1')" title="Buy Now"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.cart -->
+                                                                </div>
+                                                                <!-- /.product -->
+
+                                                            </div>
+                                                            <!-- /.products -->
+
+
+                                                        </div>
+
+
+                                                    }
+
+                                                }
+
+
+                                                <!-- /.item -->
+                                                @*<div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p2.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag hot"><span>hot</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p4.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag sale"><span>sale</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p3.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag sale"><span>sale</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p30.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag hot"><span>hot</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="javascript:void(0);"><img src="@Url.Action("ProductDetails","Product")" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag new"><span>new</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->*@
+                                            </div>
+                                            <!-- /.home-owl-carousel -->
+                                        </div>
+                                        <!-- /.product-slider -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    @*<div class="tab-pane" id="smartphone">
+                                            <div class="product-slider">
+                                                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p5.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag sale"><span>sale</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p6.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag new"><span>new</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p7.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag sale"><span>sale</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p8.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag new"><span>new</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p9.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag hot"><span>hot</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p10.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+                                                                    <div class="tag hot"><span>hot</span></div>
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+                                                </div>
+                                                <!-- /.home-owl-carousel -->
+                                            </div>
+                                            <!-- /.product-slider -->
+                                        </div>*@
+                                    <!-- /.tab-pane -->
+
+                                    <div class="tab-pane" id="laptop">
+                                        <div class="product-slider">
+                                            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p11.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag new"><span>new</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p12.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag new"><span>new</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p13.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag sale"><span>sale</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p14.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag hot"><span>hot</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p15.jpg" alt="image"></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag hot"><span>hot</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p16.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag sale"><span>sale</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Apple Iphone 5s 32GB</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+                                            </div>
+                                            <!-- /.home-owl-carousel -->
+                                        </div>
+                                        <!-- /.product-slider -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+                                    <div class="tab-pane" id="apple">
+                                        <div class="product-slider">
+                                            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p18.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag sale"><span>sale</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p18.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag hot"><span>hot</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="@Url.Action("ProductDetails","Product")"><img src="~/WebAssets/assets/images/products/p17.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag sale"><span>sale</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p16.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag new"><span>new</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p13.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag new"><span>new</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+
+                                                <div class="item item-carousel">
+                                                    <div class="products">
+                                                        <div class="product">
+                                                            <div class="product-image">
+                                                                <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p14.jpg" alt=""></a> </div>
+                                                                <!-- /.image -->
+
+                                                                <div class="tag hot"><span>hot</span></div>
+                                                            </div>
+                                                            <!-- /.product-image -->
+
+                                                            <div class="product-info text-left">
+                                                                <h3 class="name"><a href="javascript:void(0);">Samsung Galaxy S4</a></h3>
+                                                                <div class="rating rateit-small"></div>
+                                                                <div class="description"></div>
+                                                                <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                <!-- /.product-price -->
+
+                                                            </div>
+                                                            <!-- /.product-info -->
+                                                            <div class="cart clearfix animate-effect">
+                                                                <div class="action">
+                                                                    <ul class="list-unstyled">
+                                                                        <li class="add-cart-button btn-group">
+                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                        </li>
+                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                        <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <!-- /.action -->
+                                                            </div>
+                                                            <!-- /.cart -->
+
+                                                        </div>
+                                                        <!-- /.product -->
+
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.item -->
+                                            </div>
+                                            <!-- /.home-owl-carousel -->
+                                        </div>
+                                        <!-- /.product-slider -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+                                    <a href="@Url.Action("offersproducts", "Product")"><input type="button" class="btn btn-info" value="More Product" style="margin-bottom:15px;" /></a>
+                                </div>
+                                <!-- /.tab-content -->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="testimonial-slider" class="owl-carousel">
+                                @if (Model.Tables[5] != null)
+                                {
+                                    foreach (DataRow item in Model.Tables[5].Rows)
+                                    {
+                                        <a href="../Product/ShowOfferDetails?orderid=@item["offerdid"]">
+                                            <div class="testimonial-item equal-height style-4" style="height: 254px;width:100%">
+                                                @*<div class="testimonial-image cell-left">
+                                                        <img class="img-responsive" src="../assets/images/banners/home-banner2.jpg" alt="Agnes A. Bell">
+                                                    </div>
+                                                    <div class="cell-right">
+                                                        <div class="testimonial-name">
+                                                            Agnes B. Bell
+                                                        </div>
+                                                        <div class="testimonial-job">
+                                                            Assistant Project Manager
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-content quote">
+                                                        <i class="fa fa-quote-left">
+                                                        </i>This is one of the best WordPress themes I have used. All aspects are exactly what experienced designers and developers crave from a theme.
+                                                    </div>*@
+                                                <img class="img-responsive" src="@item["OfferImage"]" style="height:100%;width:90%;">
+
+                                            </div>
+                                        </a>
+
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--newdataOUR VENDORS-->
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-sm-12">
+                                <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
+                                    <div class="more-info-tab clearfix ">
+                                        <h3 class="new-product-title pull-left">Our vendors </h3>
+                                        <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
+                                            <li class="active"><a data-transition-type="backSlide" href="javascript:void(0)" data-toggle="tab">Short By</a></li>
+                                            <li>
+                                                <select class="form-control">
+                                                    <option selected>Relevance</option>
+                                                    <option>Name(A - Z)</option>
+                                                    <option>Name(Z - A)</option>
+                                                    <option>Price(Low &gt; High)</option>
+                                                    <option>Rating(Lowest)</option>
+                                                </select>
+                                            </li>
+                                            <li><a data-transition-type="backSlide" href="javascript:void(0)" data-toggle="tab">Filter By Price</a></li>
+                                            <li><input type="range" /></li>
+                                        </ul>
+                                        <!-- /.nav-tabs -->
+                                    </div>
+                                    <div class="tab-content outer-top-xs">
+                                        <div class="tab-pane in active" id="all">
+                                            <div class="product-slider">
+                                                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+
+                                                    @if (Model.Tables[2] != null)
+                                                    {
+                                                        string ext = "";
+                                                        string a = "";
+                                                        foreach (DataRow item in Model.Tables[2].Rows)
+                                                        {
+                                                            ext = System.IO.Path.GetExtension(item["TANDoc"].ToString());
+                                                            //ext = item["TANDoc"].ToString().Substring(item["TANDoc"].ToString().LastIndexOf('.'), (item["TANDoc"].ToString().Length) - (item["TANDoc"].ToString().LastIndexOf('.')));
+                                                            <div class="item item-carousel">
+                                                                <div class="products">
+                                                                    <div class="product">
+                                                                        <div class="product-image">
+                                                                            <div class="image">
+                                                                                <a href="javascript:void(0);">
+
+                                                                                    @if (ext == ".png" || ext == ".jpg" || ext == ".gif")
+                                                                                    {
+
+                                                                                        <img src="../RetailerDocs/@item["TANDoc"]" style="height: 188px;width: 206px;" />
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <video src="../RetailerDocs/@item["TANDoc"]" controls></video>
+
+                                                                                    }
+                                                                                </a>
+                                                                            </div>
+                                                                            <!-- /.image -->
+
+
+                                                                        </div>
+                                                                        <!-- /.product-image -->
+                                                                        <a href="../Product/VenderProduct?id=@item["EmailAddress"]">
+                                                                            <div class="product-info text-left">
+                                                                                <h3 class="name">@item["BusinessName"]</h3>
+
+                                                                                <div class="product-price"> <span class="price"> Address : @item["Address"] </span>  </div>
+                                                                                <!-- /.product-price -->
+                                                                            </div>
+                                                                        </a>
+                                                                        <!-- /.product-info -->
+                                                                        <!-- /.cart -->
+                                                                    </div>
+                                                                    <!-- /.product -->
+
+                                                                </div>
+                                                                <!-- /.products -->
+                                                            </div>
+
+                                                        }
+
+                                                    }
+
+                                                    <!-- /.item -->
+                                                </div>
+                                                <!-- /.home-owl-carousel -->
+                                            </div>
+                                            <!-- /.product-slider -->
+                                        </div>
+                                        <!-- /.tab-pane -->
+
+                                        <div class="tab-pane" id="smartphone">
+                                            <div class="product-slider">
+                                                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/dHAbmoFHqgA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p6.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/1Iv-Ttr_Xm8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="javascript:void(0);">Floral Print Buttoned</a></h3>
+                                                                    <div class="rating rateit-small"></div>
+                                                                    <div class="description"></div>
+                                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                                    <!-- /.product-price -->
+
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+                                                </div>
+                                                <!-- /.home-owl-carousel -->
+                                            </div>
+                                            <!-- /.product-slider -->
+                                        </div>
+                                        <!-- /.tab-pane -->
+
+                                        <div class="tab-pane" id="laptop">
+                                            <div class="product-slider">
+                                                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+                                                </div>
+                                                <!-- /.home-owl-carousel -->
+                                            </div>
+                                            <!-- /.product-slider -->
+                                        </div>
+                                        <!-- /.tab-pane -->
+
+                                        <div class="tab-pane" id="apple">
+                                            <div class="product-slider">
+                                                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+
+                                                                    <div class="image">
+                                                                        <a href="javascript:void(0);">
+                                                                            <iframe width="100%" src="https://www.youtube.com/embed/wtl5UrrgU8c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                        </a>
+                                                                    </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <div class="cart clearfix animate-effect">
+                                                                    <div class="action">
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="add-cart-button btn-group">
+                                                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                            </li>
+                                                                            <li class="lnk wishlist"> <a class="add-to-cart" href="javascript:void(0);" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                            <li class="lnk"> <a class="add-to-cart" href="javascript:void(0);" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- /.action -->
+                                                                </div>
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p16.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p13.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+                                                                <!-- /.product-info -->
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+
+                                                    <div class="item item-carousel">
+                                                        <div class="products">
+                                                            <div class="product">
+                                                                <div class="product-image">
+                                                                    <div class="image"> <a href="javascript:void(0);"><img src="~/WebAssets/assets/images/products/p14.jpg" alt=""></a> </div>
+                                                                    <!-- /.image -->
+
+
+                                                                </div>
+                                                                <!-- /.product-image -->
+
+                                                                <div class="product-info text-left">
+                                                                    <h3 class="name"><a href="@Url.Action("VenderProduct","Product")">Vender Name</a></h3>
+
+                                                                    <div class="product-price"> <span class="price"> Address </span>  </div>
+                                                                    <!-- /.product-price -->
+                                                                </div>
+
+                                                                <!-- /.cart -->
+                                                            </div>
+                                                            <!-- /.product -->
+
+                                                        </div>
+                                                        <!-- /.products -->
+                                                    </div>
+                                                    <!-- /.item -->
+                                                </div>
+                                                <!-- /.home-owl-carousel -->
+                                            </div>
+                                            <!-- /.product-slider -->
+                                        </div>
+                                        <!-- /.tab-pane -->
+
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--endnewdata-->
+
+                    <div class="row">
+                        <center><h1><b>Our Parteners</b></h1></center>
+
+                        @*<img src="~/WebAssets/assets/category/Anthos_Partners-01.max-1700x1700.png" style="width:100%;" />*@
+                        <div class="row">
+                            <div class="col-sm-3" style="background-color:white;height:100px;">
+                                <a target="_blank" href="https://www.techpile.in/"><img src="~/Images/TechpileLogo.png" style="height:75%;width:100%;" /></a>
+                            </div>
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <br />
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /#top-banner-and-menu -->
+
+

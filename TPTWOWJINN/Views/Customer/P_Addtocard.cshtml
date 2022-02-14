@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = null;
+    Layout = null;
+}
+@using System.Data;
+
+@model MDYOS.Models.PropertyClass
+
+<div class="dropdown dropdown-cart">
+    <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+        <div class="items-cart-inner" style="margin-top: 8px">
+            @*<div class="basket"></div>*@
+                <img src="~/Subcategorydoc/30893.png" style="height:50px;width:70px;color:#00acf7" class="basket"/>
+            
+
+            &nbsp;&nbsp;   <div class="basket-item-count"><span class="count">@Model.MemberCount</span></div>
+            <div class="total-price-basket" style="color:blue;"> <span class="lbl" style="color:blue;"></span> <span class="total-price"> <span class="sign" style="color:#00ACF7">Rs.</span><span class="value" style="color:#00ACF7">@Model.PayableAmt</span> </span> </div>
+        </div>
+    </a>
+    @if (Model.dt != null)
+    {
+        <ul class="dropdown-menu">
+           
+                <li>
+@foreach (DataRow item in Model.dt.Rows)
+
+{
+                    <div class="cart-item product-summary">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="image"> <a href="javascript:void(0);"><img src="@item["Path"]" alt=""></a> </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <h3 class="name"><a href="javascript:void(0);">@item["ProductTitle"]</a></h3>
+                                <div class="price">@item["SaleRate"]</div>
+                            </div>
+                            <div class="col-xs-1 action"> @*<a href="#"><i class="fa fa-trash"></i></a>*@ </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+}<!-- /.cart-item -->
+                   
+                    <hr>
+                    <div class="clearfix cart-total">
+                        <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'>Rs @Model.PayableAmt</span> </div>
+                        <div class="clearfix"></div>
+                        <a href="@Url.Action("CheckoutProduct","Web")" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                    </div>
+                    <!-- /.cart-total-->
+
+                </li>
+            
+            
+        </ul>
+    }
+    
+    <!-- /.dropdown-menu-->
+</div>

@@ -1,0 +1,438 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Font & Icon -->
+    <link rel="stylesheet" href="../AdminAsset/font/inter/inter.min.css" id="font-css">
+    <link rel="stylesheet" href="../AdminAsset/plugins/material-design-icons-iconfont/material-design-icons.min.css">
+    <link rel="stylesheet" href="../AdminAsset/plugins/fontawesome-free/css/all.min.css">
+    <!-- Plugins -->
+
+    <link rel="stylesheet" href="~/AdminAsset/plugins/datatables/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminAsset/plugins/datatables/dataTables.bootstrap4.min.css" />
+
+    <link rel="stylesheet" href="../AdminAsset/plugins/jqvmap/jqvmap.min.css">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../AdminAsset/plugins/simplebar/simplebar.min.css">
+    <link rel="stylesheet" href="../AdminAsset/css/style.min.css" id="main-css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="../AdminAsset/css/sidebar-gray.min.css" id="theme-css"> <!-- options: blue,cyan,dark,gray,green,pink,purple,red,royal,ash,crimson,namn,frost -->
+    <title>MDYOS- Admin Dashboard</title>
+</head>
+<body class="sticky-navbar">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar header -->
+        <div class="sidebar-header">
+            <a href="../AdminDashboard/Index" class="logo">
+                <img src="../Images/wowjinn (2).png" alt="Logo" id="main-logo" style="width: 185px;height: 52px;">
+            </a>
+            <a href="#" class="nav-link nav-icon rounded-circle ml-auto" data-toggle="sidebar">
+                <i class="material-icons">close</i>
+            </a>
+        </div>
+        <!-- /Sidebar header -->
+        <!-- Sidebar body -->
+        <div class="sidebar-body">
+            <ul class="nav treeview mb-4" data-accordion>
+                <li class="nav-label">DASHBOARD</li>
+                <li class="nav-item">
+                    <a class="nav-link has-icon active" href="../AdminDashboard/Index"><i data-feather="globe"></i>Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-icon" href="#"><i class="material-icons">trending_up</i>Live Feeds</a>
+                </li>
+                <li class="nav-label">APPLICATION</li>
+                <li class="nav-item">
+                    <a class="nav-link has-icon" href="../Master/CityMaster"><i class="material-icons">chrome_reader_mode</i>Masters</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-icon" href="../Retailers/ManageRetailers"><i class="material-icons">card_travel</i>Vender</a>
+                </li>
+                @*<li class="nav-item">
+                    <a class="nav-link has-icon" href="#"><i class="material-icons">assignment_ind</i>Delivery Excutives</a>
+                    </li>*@
+                <li class="nav-item">
+                    <a class="nav-link has-icon" href="../Product/Index"><i class="material-icons">receipt</i>Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-icon" href="../Report/Index"><i class="material-icons">shopping_cart</i>Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-icon" href="..AdminDashboard/Allcustomer"><i class="material-icons">chrome_reader_mode</i>Accounts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-icon" href="#"><i class="material-icons">description</i>Reports</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /Sidebar body -->
+    </div>
+    <!-- /Sidebar -->
+    <!-- Main -->
+    <div class="main">
+        <!-- Main header -->
+        <div class="main-header">
+            <a href="../AdminDashboard/Index" class="logo d-none d-lg-flex">
+                @*<img src="../Images/wowjinn (2).png" alt="Logo" id="main-logo" style="width: 208px;height: 52px;">*@
+                <h3 style="color:blue; font-weight:bolder;">Wow Jinn Admin</h3>
+            </a>
+            <a class="nav-link nav-link-faded rounded-circle nav-icon d-lg-none" href="#" data-toggle="sidebar"><i class="material-icons">menu</i></a>
+            <form class="form-inline ml-3 d-none d-md-flex">
+                <span class="input-icon">
+                    <i class="material-icons">search</i>
+                    <input type="text" placeholder="Search..." class="form-control bg-gray-200 border-gray-200 rounded-lg">
+                </span>
+            </form>
+            <ul class="nav nav-circle ml-auto">
+                @*<li class="nav-item d-md-none"><a class="nav-link nav-link-faded nav-icon" data-toggle="modal" href="#searchModal"><i class="material-icons">search</i></a></li>
+                <li class="nav-item d-none d-sm-block"><a class="nav-link nav-link-faded nav-icon" href="#" id="refreshPage"><i class="material-icons">refresh</i></a></li>*@
+                @*<li class="nav-item dropdown nav-notif">
+                    <a class="nav-link nav-link-faded nav-icon has-badge dropdown-toggle no-caret" href="#" data-toggle="dropdown" data-display="static">
+                        <i data-feather="bell"></i>
+                        <span class="badge badge-pill badge-danger">4</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right p-0">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <i data-feather="bell" class="mr-2"></i>4 notifications
+                            </div>
+                            <div class="card-body p-0 pt-1">
+                                <div class="list-group list-group-sm list-group-flush">
+                                    <a href="javascript:void(0)" class="list-group-item list-group-item-action">
+                                        <div class="media">
+                                            <span class="bg-primary text-white btn-icon rounded-circle"><i data-feather="user-plus"></i></span>
+                                            <div class="media-body ml-2">
+                                                <p class="mb-0">5 New members joined today</p>
+                                                <small class="text-secondary">
+                                                    <i class="material-icons icon-inline mr-1">access_time</i>5 minutes ago
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0)" class="list-group-item list-group-item-action">
+                                        <div class="media">
+                                            <span class="bg-info text-white btn-icon rounded-circle"><i data-feather="message-square"></i></span>
+                                            <div class="media-body ml-2">
+                                                <p class="mb-0">2 New comments</p>
+                                                <small class="text-secondary">
+                                                    <i class="material-icons icon-inline mr-1">access_time</i>10 minutes ago
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0)" class="list-group-item list-group-item-action">
+                                        <div class="media">
+                                            <span class="bg-success text-white btn-icon rounded-circle"><i data-feather="shopping-bag"></i></span>
+                                            <div class="media-body ml-2">
+                                                <p class="mb-0">10+ New orders</p>
+                                                <small class="text-secondary">
+                                                    <i class="material-icons icon-inline mr-1">access_time</i>15 minutes ago
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0)" class="list-group-item list-group-item-action">
+                                        <div class="media">
+                                            <span class="bg-warning text-white btn-icon rounded-circle"><i data-feather="user-check"></i></span>
+                                            <div class="media-body ml-2">
+                                                <p class="mb-0">Complete your account details</p>
+                                                <small class="text-secondary">
+                                                    <i class="material-icons icon-inline mr-1">access_time</i>20 minutes ago
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-footer justify-content-center">
+                                <a href="javascript:void(0)">View more &rsaquo;</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>*@
+                <li class="nav-item dropdown ml-2">
+                    <a class="nav-link nav-link-faded rounded nav-link-img dropdown-toggle px-2" href="#" data-toggle="dropdown" data-display="static">
+                        <img src="https://mimity-admin896.netlify.app/dist/img/user.svg" alt="Admin" class="rounded-circle mr-2">
+                        @if (@Session["Role"].ToString() == "1")
+                        {
+                            <span class="d-none d-sm-block">@Session["UserName"] </span>
+                        }
+                        else
+                        {
+                            <script>
+                                //alert(@ViewBag.data+@Session["Role"]);
+                                window.location.href = "../Account/AdminLogin"
+                            </script>
+                        }
+                        @if (@Session["Role"].ToString() == null)
+                        {
+                            <script>
+                                //alert(@ViewBag.data+@Session["Role"]);
+                                window.location.href = "../Account/AdminLogin"
+                            </script>
+                        }
+                     
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right pt-0 overflow-hidden">
+                        <div class="media align-items-center bg-primary text-white px-4 py-3 mb-2">
+                            <img src="https://mimity-admin896.netlify.app/dist/img/user.svg" alt="Admin" class="rounded-circle" width="50" height="50">
+                            <div class="media-body ml-2 text-nowrap">
+                                <h6 class="mb-0">Admin</h6>
+                                <span class="text-gray-400 font-size-sm">Administrator</span>
+                            </div>
+                        </div>
+                        <a class="dropdown-item has-icon" href="javascript:void(0)"><i class="mr-2" data-feather="user"></i>Profile</a>
+                        <a class="dropdown-item has-icon" href="javascript:void(0)"><i class="mr-2" data-feather="settings"></i>Settings</a>
+                        <a class="dropdown-item has-icon text-danger" href="../Account/Logout"><i class="mr-2" data-feather="log-out"></i>Sign out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- /Main header -->
+        <!-- Main navbar -->
+        <nav class="main-navbar navbar main-navbar navbar-expand navbar-light shadow-sm sticky-top">
+            <a class="nav-link nav-link-faded nav-icon rounded-circle" data-scroll="left" href="#"><i class="material-icons">chevron_left</i></a>
+            <div class="navbar-collapse">
+                <div class="navbar-nav nav-pills nav-gap-x-1">
+                    <a class="nav-item nav-link nav-link-faded has-icon active" href="../AdminDashboard/Index"><i data-feather="globe"></i>Dashboard</a>
+                    @*<a class="nav-item nav-link nav-link-faded has-icon " href="#"> <i class="material-icons">trending_up</i>Live Feeds</a>*@
+                    <a class="nav-item nav-link nav-link-faded has-icon" href="../Master/CityMaster"><i class="material-icons">chrome_reader_mode</i>Masters</a>
+                    <a class="nav-item nav-link nav-link-faded has-icon" href="../Retailers/ManageRetailers"><i class="material-icons">card_travel</i>Retailers</a>
+                    @*<a class="nav-item nav-link nav-link-faded has-icon" href="#"><i class="material-icons">assignment_ind</i>Delivery Excutives</a>*@
+                    <a class="nav-item nav-link nav-link-faded has-icon" href="../Product/Index"><i class="material-icons">receipt</i>Products</a>
+                    <a class="nav-item nav-link nav-link-faded has-icon" href="../Report/Index"><i class="material-icons">shopping_cart</i>Orders</a>
+                    <a class="nav-item nav-link nav-link-faded has-icon" href="/AdminDashboard/Allcustomer"><i class="material-icons">assessment</i>Accounts</a>
+                    <a class="nav-item nav-link nav-link-faded has-icon" href="../Customer/Custmerlist"><i class="material-icons">description</i>Reports</a>
+
+                </div>
+            </div>
+            <a class="nav-link nav-link-faded nav-icon rounded-circle" data-scroll="right" href="#"><i class="material-icons">chevron_right</i></a>
+        </nav>
+        <!-- /Main navbar -->
+
+        @RenderBody()
+        <!-- /Main body -->
+    </div>
+    <!-- /Main -->
+    <!-- Search Modal -->
+    <div class="modal" id="searchModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-1 p-lg-3">
+                    <form>
+                        <div class="input-group input-group-lg input-group-search">
+                            <div class="input-group-prepend">
+                                <button class="btn text-secondary btn-icon btn-lg" type="button" data-dismiss="modal">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control form-control-lg border-0 mx-1 px-0 px-lg-3" placeholder="Search..." autocomplete="off" required autofocus>
+                            <div class="input-group-append">
+                                <button class="btn text-secondary btn-icon btn-lg" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Search Modal -->
+    <!-- Main Scripts -->
+    <script src="../AdminAsset/js/jquery.min.js"></script>
+    <script src="../AdminAsset/js/bootstrap.bundle.min.js"></script>
+    <script src="../AdminAsset/plugins/simplebar/simplebar.min.js"></script>
+    <script src="../AdminAsset/plugins/feather-icons/feather.min.js"></script>
+    <script src="../AdminAsset/js/script.min.js"></script>
+    @*<script src="../AdminAsset/js/settings.min.js"></script>*@
+    <!-- Plugins -->
+    <script src="../AdminAsset/plugins/chart.js/Chart.min.js"></script>
+    <script src="../AdminAsset/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="../AdminAsset/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="../AdminAsset/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+    <script src="~/AdminAsset/plugins/datatables/jquery.dataTables.bootstrap4.responsive.min.js"></script>
+
+    <script>
+        $(() => {
+            App.checkAll()
+            // Run datatable
+            var table = $('#example').DataTable({
+                drawCallback: function () {
+                    $('.dataTables_paginate > .pagination').addClass('pagination-sm') // make pagination small
+                }
+            })
+            // Apply column filter
+            $('#example .dt-column-filter th').each(function (i) {
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                          .column(i)
+                          .search(this.value)
+                          .draw()
+                    }
+                })
+            })
+            // Toggle Column filter function
+            var responsiveFilter = function (table, index, val) {
+                var th = $(table).find('.dt-column-filter th').eq(index)
+                val === true ? th.removeClass('d-none') : th.addClass('d-none')
+            }
+            // Run Toggle Column filter at first
+            $.each(table.columns().responsiveHidden(), function (index, val) {
+                responsiveFilter('#example', index, val)
+            })
+            // Run Toggle Column filter on responsive-resize event
+            table.on('responsive-resize', function (e, datatable, columns) {
+                $.each(columns, function (index, val) {
+                    responsiveFilter('#example', index, val)
+                })
+            })
+        })
+    </script>
+
+    <script>
+        $(() => {
+            function run_sparkline() {
+                $('.sparkline-data').text('').sparkline('html', {
+                    width: '100%',
+                    height: 20,
+                    lineColor: gray,
+                    fillColor: false,
+                    tagValuesAttribute: 'data-value'
+                })
+            }
+            // Run sparkline on document view (window) resized
+            App.resize(() => {
+                run_sparkline()
+            })()
+            // Run sparkline on sidebar updated (toggle collapse)
+            document.addEventListener('sidebar:update', () => {
+                run_sparkline()
+            })
+
+            // Chart options
+            const options = {
+                maintainAspectRatio: false, // disable the maintain aspect ratio in options then it uses the available height
+                tooltips: {
+                    mode: 'index',
+                    intersect: false, // Interactions configuration: https://www.chartjs.org/docs/latest/general/interactions/
+                },
+                elements: {
+                    rectangle: {
+                        borderWidth: 1 // bar border width
+                    },
+                    line: {
+                        borderWidth: 1 // label border width
+                    }
+                }
+            }
+
+            // Monthly Sales
+            new Chart('monthlySalesChart', {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'Last year',
+                        backgroundColor: Chart.helpers.color(gray).alpha(0.1).rgbString(),
+                        borderColor: gray,
+                        fill: 'start',
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                      {
+                          label: 'This year',
+                          backgroundColor: Chart.helpers.color(blue).alpha(0.1).rgbString(),
+                          borderColor: blue,
+                          fill: 'start',
+                          data: [28, 48, 40, 19, 86, 27, 90]
+                      }
+                    ]
+                },
+                options: options
+            })
+
+            // Sales Revenue Map
+            $('#vmap').vectorMap({
+                map: 'usa_en',
+                showTooltip: true,
+                backgroundColor: '#fff',
+                color: '#d1e6fa',
+                colors: {
+                    fl: blue,
+                    ca: blue,
+                    tx: blue,
+                    wy: blue,
+                    ny: blue
+                },
+                selectedColor: '#00cccc',
+                enableZoom: false,
+                borderWidth: 1,
+                borderColor: '#fff',
+                hoverOpacity: .85
+            })
+
+            // Today Sales
+            options.scales = {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+            new Chart('barChart2', {
+                type: 'horizontalBar',
+                data: {
+                    labels: ['6am', '10am', '1pm', '4pm', '7pm', '10pm'],
+                    datasets: [{
+                        label: 'Today',
+                        backgroundColor: Chart.helpers.color(cyan).alpha(0.3).rgbString(),
+                        borderColor: cyan,
+                        data: [20, 60, 50, 45, 50, 60]
+                    },
+                      {
+                          label: 'Yesterday',
+                          backgroundColor: Chart.helpers.color(yellow).alpha(0.3).rgbString(),
+                          borderColor: yellow,
+                          data: [10, 40, 30, 40, 55, 25]
+                      }
+                    ]
+                },
+                options: options
+            })
+
+            // Reload card event
+            document.querySelector('#transaction-history').addEventListener('card:reload', function () {
+                var thisCard = this
+                // reload transaction history...
+                setTimeout(() => { // do nothing for a second (this is only for demo)
+                    App.stopCardLoader(thisCard) // when done, run this function
+                }, 1000)
+            })
+            document.querySelector('#new-customers').addEventListener('card:reload', function () {
+                var thisCard = this
+                // reload new customers..
+                setTimeout(() => { // do nothing for a second (this is only for demo)
+                    App.stopCardLoader(thisCard) // when done, run this function
+                }, 1000)
+            })
+            document.querySelector('#today-sales').addEventListener('card:reload', function () {
+                var thisCard = this
+                // reload today sales..
+                setTimeout(() => { // do nothing for a second (this is only for demo)
+                    App.stopCardLoader(thisCard) // when done, run this function
+                }, 1000)
+            })
+        })
+    </script>
+
+</body>
+</html>

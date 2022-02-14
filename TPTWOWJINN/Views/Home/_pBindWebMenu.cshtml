@@ -1,0 +1,61 @@
+﻿@model MDYOS.Models.PropertyClass
+@{
+    Layout = null;
+}
+@using System.Data;
+
+<ul class="list-unstyled form-inline mb-0">
+    <li class="nav-item active">
+        <a class="nav-link text-white pl-0" href="../Home/Index">Home <span class="sr-only">(current)</span></a>
+    </li>
+    @if (Model.dt != null && Model.dt.Rows.Count > 0)
+    {
+        foreach (DataRow dr in Model.dt.Rows)
+        {
+            <li class="nav-item active">
+                <a class="nav-link text-white pl-0" href="javascript:void(0);" catId="@dr["RootCategoryId"]">@dr["RootCategoryName"] <span class="sr-only">(current)</span></a>
+            </li>
+        }
+    }
+
+
+    @*<li class="nav-item dropdown">
+        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Products
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Listing</a>
+            <a class="dropdown-item" href="#">Detail</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Trending</a>
+            <a class="dropdown-item" href="#">Recommended</a>
+            <a class="dropdown-item" href="#">Most Popular</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Checkout Process
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Cart</a>
+            <a class="dropdown-item" href="#">Checkout</a>
+            <a class="dropdown-item" href="#">Successful</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My Order
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">My order</a>
+            <a class="dropdown-item" href="#">Status Complete</a>
+            <a class="dropdown-item" href="#">Status on Process</a>
+            <a class="dropdown-item" href="#">Status Canceled</a>
+            <a class="dropdown-item" href="#">Review</a>
+        </div>
+    </li>*@
+</ul>
+<div class="list-unstyled form-inline mb-0 ml-auto">
+    <a href="#" class="text-white px-3 py-2">Trending</a>
+    <a href="#" class="text-white bg-offer px-3 py-2"><i class="icofont-sale-discount h6"></i>Promos</a>
+</div>

@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "VenderProduct";
+    Layout = "~/Views/Shared/_webLayouts.cshtml";
+}
+
+<div class="container">
+    <section class="section featured-product wow fadeInUp">
+        <h3 class="section-title">Vender Name Products</h3>
+        <div class="col-md-12">
+            <!-- ========================================== SECTION – HERO ========================================= -->
+
+            
+
+
+            <div class="clearfix filters-container m-t-10">
+                @*<div class="row">
+                    <div class="col col-sm-6 col-md-2">
+                        <div class="filter-tabs">
+                            <ul id="filter-tabs" class="nav nav-tabs nav-tab-box nav-tab-fa-icon">
+                                <li class=""> <a data-toggle="tab" href="#grid-container"><i class="icon fa fa-th-large"></i>Grid</a> </li>
+                                <li class="active"><a data-toggle="tab" href="#list-container"><i class="icon fa fa-th-list"></i>List</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.filter-tabs -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col col-sm-12 col-md-6">
+                        <div class="col col-sm-3 col-md-6 no-padding">
+                            <div class="lbl-cnt">
+                                <span class="lbl">Sort by</span>
+                                <div class="fld inline">
+                                    <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                                        <button data-toggle="dropdown" type="button" class="btn dropdown-toggle"> Position <span class="caret"></span> </button>
+                                        <ul role="menu" class="dropdown-menu">
+                                            <li role="presentation"><a href="#">position</a></li>
+                                            <li role="presentation"><a href="#">Price:Lowest first</a></li>
+                                            <li role="presentation"><a href="#">Price:HIghest first</a></li>
+                                            <li role="presentation"><a href="#">Product Name:A to Z</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /.fld -->
+                            </div>
+                            <!-- /.lbl-cnt -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col col-sm-3 col-md-6 no-padding">
+                            <div class="lbl-cnt">
+                                <span class="lbl">Show</span>
+                                <div class="fld inline">
+                                    <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                                        <button data-toggle="dropdown" type="button" class="btn dropdown-toggle"> 1 <span class="caret"></span> </button>
+                                        <ul role="menu" class="dropdown-menu">
+                                            <li role="presentation"><a href="#">1</a></li>
+                                            <li role="presentation"><a href="#">2</a></li>
+                                            <li role="presentation"><a href="#">3</a></li>
+                                            <li role="presentation"><a href="#">4</a></li>
+                                            <li role="presentation"><a href="#">5</a></li>
+                                            <li role="presentation"><a href="#">6</a></li>
+                                            <li role="presentation"><a href="#">7</a></li>
+                                            <li role="presentation"><a href="#">8</a></li>
+                                            <li role="presentation"><a href="#">9</a></li>
+                                            <li role="presentation"><a href="#">10</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /.fld -->
+                            </div>
+                            <!-- /.lbl-cnt -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col col-sm-6 col-md-4 text-right">
+                        <div class="pagination-container">
+                            <ul class="list-inline list-unstyled">
+                                <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                <li><a href="#">1</a></li>
+                                <li class="active"><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            </ul>
+                            <!-- /.list-inline -->
+                        </div>
+                        <!-- /.pagination-container -->
+                    </div>
+                    <!-- /.col -->
+                </div>*@
+                <!-- /.row -->
+            </div>
+            <div class="search-result-container ">
+                <div id="myTabContent" class="tab-content category-list">
+                   
+                    <!-- /.tab-pane -->
+
+                    <div class="tab-pane  active" id="list-container">
+                        <div class="category-product">
+                            <div class="category-product-inner wow fadeInUp animated animated" style="visibility: visible; animation-name: fadeInUp;">
+                                <div class="products">
+                                    <div class="product-list product">
+                                        <div class="row product-list-row">
+                                            <div class="col col-sm-4 col-lg-4">
+                                                <div class="product-image">
+                                                    <div class="image"> <img src="/assets/images/products/p3.jpg" alt=""> </div>
+                                                </div>
+                                                <!-- /.product-image -->
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="col col-sm-8 col-lg-8">
+                                                <div class="product-info">
+                                                    <h3 class="name"><a href="/Product/ProductDetails">Floral Print Buttoned</a></h3>
+                                                    <div class="rating rateit-small rateit"><button id="rateit-reset-14" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-14" style=""></button><div id="rateit-range-14" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-14" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-readonly="false" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 0px;"></div><div class="rateit-hover" style="height:14px"></div></div><button id="rateit-reset-9" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-9"></button><div id="rateit-range-9" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-9" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-readonly="false" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 0px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
+                                                    <div class="product-price"> <span class="price"> $450.99 </span> <span class="price-before-discount">$ 800</span> </div>
+                                                    <!-- /.product-price -->
+                                                    <div class="description m-t-10">Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget, lacinia id purus. Suspendisse posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida eget.</div>
+                                                    <div class="cart clearfix animate-effect">
+                                                        <div class="action">
+                                                            <ul class="list-unstyled">
+                                                                <li class="add-cart-button btn-group">
+                                                                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                </li>
+                                                                <li class="lnk wishlist"> <a class="add-to-cart" href="/Product/ProductDetails" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                @*<li class="lnk"> <a class="add-to-cart" href="/Product/ProductDetails" title="Compare"> <i class="fa fa-signal"></i> </a> </li>*@
+                                                            </ul>
+                                                        </div>
+                                                        <!-- /.action -->
+                                                    </div>
+                                                    <!-- /.cart -->
+
+                                                </div>
+                                                <!-- /.product-info -->
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <!-- /.product-list-row -->
+                                        <div class="tag new"><span>new</span></div>
+                                    </div>
+                                    <!-- /.product-list -->
+                                </div>
+                                <!-- /.products -->
+                            </div>
+                            <!-- /.category-product-inner -->
+
+                       
+
+                        </div>
+                        <!-- /.category-product -->
+                    </div>
+                    <!-- /.tab-pane #list-container -->
+                </div>
+                <!-- /.tab-content -->
+                <div class="clearfix filters-container">
+                    <div class="text-right">
+                        <div class="pagination-container">
+                            <ul class="list-inline list-unstyled">
+                                <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                <li><a href="#">1</a></li>
+                                <li class="active"><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            </ul>
+                            <!-- /.list-inline -->
+                        </div>
+                        <!-- /.pagination-container -->
+                    </div>
+                    <!-- /.text-right -->
+
+                </div>
+                <!-- /.filters-container -->
+
+            </div>
+            <!-- /.search-result-container -->
+
+        </div>
+
+
+
+        
+
+    </section>
+</div>
+

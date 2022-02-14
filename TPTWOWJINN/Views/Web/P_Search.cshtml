@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = null;
+    Layout = null;
+}
+
+@model MDYOS.Models.PropertyClass
+@using System.Data;
+
+
+
+<div class="search-area">
+    <form>
+        <div class="control-group" style="margin-top: 30px;">
+
+            <select id="searchddl" class="categories-filter animate-dropdown" style="height:43px;border:none;">
+                <option selected value="" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">&nbsp;&nbsp;&nbsp;&nbsp; All</a></option>
+                @*<li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="category.html">All <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">*@
+
+                @*<li>All</li>*@
+                @if (Model.dt.Rows.Count > 0 && Model.dt != null)
+                {
+                    foreach (DataRow item in Model.dt.Rows)
+                    {
+                        <option value="@item["CategoryId"]" role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">&nbsp;&nbsp;&nbsp;&nbsp; @item["CategoryName"]</a></option>
+                    }
+                }
+                @*<li class="menu-header">Computer</li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">- Clothing</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">- Electronics</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">- Shoes</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">- Watches</a></li>*@
+
+            </select>
+            <input class="search-field" placeholder="Search here..." id="search" />
+            <a class="search-button" onclick="itemSearch()" href="#"></a>
+        </div>
+    </form>
+</div>
+
+
+@*<script>
+        $(document).ready(function () {
+            itemSearch("search", '@Url.Action("ItemName","Web")');
+        })
+
+        function itemSearch(idName, url) {
+            debugger;
+            var allItem = new Array();
+            $("#" + idName).autocomplete({
+                source: function (request, response) {
+                    var arr = new Array();
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        dataType: "json",
+                        data: { Search: request.term },
+                        success: function (data) {
+                            $.each(data, function (index, item) {
+                                arr.push({
+                                    label: item.iName,
+                                    value: item.iName,
+                                    iId: item.iId
+                                });
+                                allItem.push(item);
+                            });
+                            response(arr);
+
+                        },
+                        error: function (error) {
+                            alert('Plz Select Department & Series...')
+                        }
+                    });
+                },
+                messages: {
+                    noResults: "", results: ""
+                },
+                select: function (event, ui) {
+                    var singleItem = allItem.find(x=>x.iId == ui.item.iId);
+                    $("#" + targetIDName).val(singleItem.iUnit);
+                    $("#iGroup").val(singleItem.iGroup);
+                    $("#iSgroup").val(singleItem.iSgroup);
+                    $("#iId").val(singleItem.iId);
+
+                }
+            });
+
+        }
+    </script>*@
+
+<script>
+
+    $(document).ready(function () {
+        $("#searchddl").change(function () {
+            alert('ok');
+            var a = $(this).val();
+            alert(a);
+            $.ajax({
+                url: "@Url.Action("Searchdata", "web")",
+                method: "POST",
+                data: { value: a },
+                success: function (r) {
+                    alert(r);
+                    var availableTags = r
+                    //    [
+                    //  "ActionScript",
+                    //  "AppleScript",
+                    //  "Asp",
+                    //  "BASIC",
+                    //  "C",
+                    //  "C++",
+                    //  "Clojure",
+                    //  "COBOL",
+                    //  "ColdFusion",
+                    //  "Erlang",
+                    //  "Fortran",
+                    //  "Groovy",
+                    //  "Haskell",
+                    //  "Java",
+                    //  "JavaScript",
+                    //  "Lisp",
+                    //  "Perl",
+                    //  "PHP",
+                    //  "Python",
+                    //  "Ruby",
+                    //  "Scala",
+                    //  "Scheme"
+                    //];
+                    $("#search").autocomplete({
+                        source: availableTags
+                    });
+                    alert('ok')
+                }
+
+            });
+        });
+    });
+
+    function itemSearch() {
+        var search = $('#search').val();
+        debugger;
+        window.location.href = "../Web/FiterProduct?text="+ search
+        @*window.location.href="@Url.Action("FiterProduct", "Web")"
+        $.ajax({
+            url: "@Url.Action("FiterProduct", "Web")",
+            method:"POST",
+            data: { text: search },
+            success:function(r)
+            {
+              //  window.location.href="@Url.Action("FiterProduct", "Web")"
+            },
+            error:function(r)
+            {
+
+            }
+
+
+        })*@
+    }
+
+
+
+</script>

@@ -1,0 +1,572 @@
+﻿@model MDYOS.Models.PropertyClass
+@{
+    ViewBag.Title = "HomePage";
+    Layout = "~/Views/Shared/_WebLayoutNew.cshtml";
+}
+@using System.Data;
+
+<div class="section-slide--default">
+    <div class="owl-carousel" data-owl-auto="false" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
+        <div class="ps-banner">
+            <img class="mobile-only" src="../webcontent/img/slider/home-1/slide_01_mobile.png" alt="alt" /><img class="desktop-only" src="../webcontent/img/slider/home-1/slide_01.png" alt="alt" />
+            <div class="ps-content">
+                <div class="container">
+                    <div class="ps-content-box">
+                        <div class="ps-title">Ecofarm Organic Fruit & Vegetable Delivery <br /> <span class='text-danger'>Daily Offers.</span></div>
+                        <div class="ps-subtitle">With our deverse range of <span class='text-success'>100% fresh</span> foods.</div>
+                        <div class="ps-shopnow"> <a href="shop-view-grid.html">Shop Now<i class="icon-chevron-right"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ps-banner">
+            <img class="mobile-only" src="../webcontent/img/slider/home-1/slide_02_mobile.png" alt="alt" /><img class="desktop-only" src="../webcontent/img/slider/home-1/slide_02.png" alt="alt" />
+            <div class="ps-content">
+                <div class="container">
+                    <div class="ps-content-box">
+                        <div class="ps-node"><span class='text-success'>NEW ARRIVALS</span></div>
+                        <div class="ps-title">Whole Earth Organic Sparkling Lemonade.</div>
+                        <div class="ps-subtitle">Made with nuatural ingredients</div>
+                        <div class="ps-shopnow"> <a href="shop-view-grid.html">Shop Now<i class="icon-chevron-right"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ps-banner">
+            <img class="mobile-only" src="../webcontent/img/slider/home-1/slide_03_mobile.png" alt="alt" /><img class="desktop-only" src="../webcontent/img/slider/home-1/slide_03.png" alt="alt" />
+            <div class="ps-content">
+                <div class="container">
+                    <div class="ps-content-box">
+                        <div class="ps-node"><span class='text-danger'>SALE UP TO 30%</span></div>
+                        <div class="ps-title">Whole Earth Maple Frosted Organic Corn Flakes.</div>
+                        <div class="ps-subtitle">Only from <br /> <span class='price'>$5.99</span></div>
+                        <div class="ps-shopnow"> <a href="shop-view-grid.html">Shop Now<i class="icon-chevron-right"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-slide__footer">
+        <div class="container">
+            <div class="row m-0">
+                <div class="col-4">
+                    <p><b>Offers: Ecofarm Organic Fruit & Vegies</b></p>
+                </div>
+                <div class="col-4">
+                    <p>Whole Earth Organic Sparkling Lemonade</p>
+                </div>
+                <div class="col-4">
+                    <p>Whole Earth Maple Frasted Organic Corn Flakes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ps-promotion--default">
+    <div class="container">
+        <div class="row m-0">
+            <div class="col-6 col-lg-3"><a href="shop-view-grid.html"><img src="../webcontent/img/promotion/promotion_01.jpg" alt="alt" /></a></div>
+            <div class="col-6 col-lg-3"><a href="shop-view-grid.html"><img src="../webcontent/img/promotion/promotion_02.jpg" alt="alt" /></a></div>
+            <div class="col-6 col-lg-3"><a href="shop-view-grid.html"><img src="../webcontent/img/promotion/promotion_03.jpg" alt="alt" /></a></div>
+            <div class="col-6 col-lg-3"><a href="shop-view-grid.html"><img src="../webcontent/img/promotion/promotion_04.jpg" alt="alt" /></a></div>
+        </div>
+    </div>
+</div>
+<div class="ps-component ps-component--category">
+    @Html.Action("_pBindWebCategory", "Home")
+</div>
+
+@if (Model.dt != null && Model.dt.Rows.Count > 0)
+{
+    <section class="section-flashdeal--default ps-home--block">
+        <div class="container">
+            <div class="ps-block__header">
+                <h3 class="ps-block__title"><i class="icon-power"></i>Recently Added</h3><a class="ps-block__view" href="#">View all<i class="icon-chevron-right"></i></a>
+            </div>
+            <div class="flashdeal--content">
+                <div class="owl-carousel" data-owl-auto="false" data-owl-loop="false" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="6" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="6" data-owl-duration="1000" data-owl-mousedrag="on">
+                  
+                    @foreach (DataRow dr in Model.dt.Rows)
+                    {
+                        <div class="ps-product--standard">
+                            <a href="#"><img class="ps-product__thumbnail" src="@dr["Path"]" alt="@dr["ProductTitle"]" /></a>
+                            <div class="ps-product__content">
+                                <p class="ps-product-price-block"><span class="ps-product__sale">₹@dr["ProductMRP"]</span><span class="ps-product__price">₹@dr["SaleRate"]</span>
+                                @if (Convert.ToDecimal(dr["DiscPer"]) > 0)
+                                {
+                                    <span class="ps-product__off">@dr["DiscPer"]% Off</span>
+                                }
+                                </p>
+                                <p class="ps-product__type"><i class="icon-store"></i>@dr["Saller"]</p><a href="product-default.html">
+                                    <h5 class="ps-product__name">@dr["ProductTitle"]</h5>
+                                </a>
+                                <p class="ps-product__unit">4 per pack</p>
+                                <div class="ps-product__rating">
+                                    <select class="rating-stars">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select><span>(0) </span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="ps-product__sold">Sold: 0/40</p>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="def-number-input number-input safari_only">
+                                    <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
+                                    <input class="quantity" min="0" name="quantity" value="1" type="number" />
+                                    <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
+                                </div>
+                                <div class="ps-product__total">
+                                    Total: <span>$2.90</span>
+                                </div>
+                                <button class="ps-product__addcart" data-toggle="modal" data-target="#popupAddToCart"><i class="icon-cart"></i>Add to cart</button>
+                               
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model.dt != null && Model.dt.Rows.Count > 0)
+{
+    <section class="section-flashdeal--default ps-home--block">
+        <div class="container">
+            <div class="ps-block__header">
+                <h3 class="ps-block__title"><i class="icon-power"></i>Trending Products</h3><a class="ps-block__view" href="#">View all<i class="icon-chevron-right"></i></a>
+            </div>
+            <div class="flashdeal--content">
+                <div class="owl-carousel" data-owl-auto="false" data-owl-loop="false" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="6" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="6" data-owl-duration="1000" data-owl-mousedrag="on">
+
+                    @foreach (DataRow dr in Model.dt.Rows)
+                    {
+                        <div class="ps-product--standard">
+                            <a href="#"><img class="ps-product__thumbnail" src="@dr["Path"]" alt="@dr["ProductTitle"]" /></a>
+                            <div class="ps-product__content">
+                                <p class="ps-product-price-block">
+                                    <span class="ps-product__sale">₹@dr["ProductMRP"]</span><span class="ps-product__price">₹@dr["SaleRate"]</span>
+                                    @if (Convert.ToDecimal(dr["DiscPer"]) > 0)
+                                    {
+                                        <span class="ps-product__off">@dr["DiscPer"]% Off</span>
+                                    }
+                                </p>
+                                <p class="ps-product__type"><i class="icon-store"></i>@dr["Saller"]</p><a href="product-default.html">
+                                    <h5 class="ps-product__name">@dr["ProductTitle"]</h5>
+                                </a>
+                                <p class="ps-product__unit">4 per pack</p>
+                                <div class="ps-product__rating">
+                                    <select class="rating-stars">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select><span>(0) </span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="ps-product__sold">Sold: 0/40</p>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="def-number-input number-input safari_only">
+                                    <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
+                                    <input class="quantity" min="0" name="quantity" value="1" type="number" />
+                                    <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
+                                </div>
+                                <div class="ps-product__total">
+                                    Total: <span>₹@dr["SaleRate"]</span>
+                                </div>
+                                <button class="ps-product__addcart" data-toggle="modal" data-target="#popupAddToCart"><i class="icon-cart"></i>Add to cart</button>                            
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+
+<section class="section-recommendations--default ps-home--block">
+    <div class="container">
+        <div class="ps-block__header mobile">
+            <h3 class="ps-block__title">Recommendations</h3>
+            <div class="ps-block__list">
+                <ul>
+                    <li class="menu-item">
+                        <a href="shop-categories.html">New Arrivals</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="shop-categories.html">Best Selling</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="shop-categories.html">Most Popular</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="shop-categories.html">On Sales</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="shop-categories.html">All</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="recommendations__content">
+            <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="3" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="3" data-owl-item-xl="3" data-owl-duration="1000" data-owl-mousedrag="on">
+                <div class="recommendation-carousel">
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_31a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Chicken Drums Jumbo Pk</a></h5>
+                            <p class="ps-product__unit">1kg</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__price-default">$13.99</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_18a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Grapes, Red Seedless</a></h5>
+                            <p class="ps-product__unit">100g</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__sale">$5.99</span><span class="ps-product__price">$11.90</span><span class="ps-product__off">20% Off</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/07-Beer-WineSpirits/07_11a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Honest Organic Still Beer</a></h5>
+                            <p class="ps-product__unit">4 per pack</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__price-default">$39.90</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommendation-carousel">
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_27a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">British Organic Meat</a></h5>
+                            <p class="ps-product__unit">500g</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__sale">$3.99</span><span class="ps-product__price">$11.90</span><span class="ps-product__off">60% Off</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_7a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Duchy Lemonade</a></h5>
+                            <p class="ps-product__unit">100g</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__price-default">$4.49</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/07-Beer-WineSpirits/07_8a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Jacks Original Pepperoni</a></h5>
+                            <p class="ps-product__unit">750ml</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__sale">$5.99</span><span class="ps-product__price">$11.90</span><span class="ps-product__off">15% Off</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommendation-carousel">
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_1a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Corn Yellow Sweet</a></h5>
+                            <p class="ps-product__unit">4 per pack</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__price-default">$6.99</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/07-Beer-WineSpirits/07_2a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Extreme Budweiser Light Can</a></h5>
+                            <p class="ps-product__unit">330ml</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__sale">$5.99</span><span class="ps-product__price">$11.90</span><span class="ps-product__off">45% Off</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/02-FoodCupboard/02_3a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Large Green Bell Snack</a></h5>
+                            <p class="ps-product__unit">180g</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__sale">$9.99</span><span class="ps-product__price">$11.90</span><span class="ps-product__off">16% Off</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommendation-carousel">
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_31a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Chicken Drums Jumbo Pk</a></h5>
+                            <p class="ps-product__unit">1kg</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__price-default">$13.99</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_18a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Grapes, Red Seedless</a></h5>
+                            <p class="ps-product__unit">100g</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__sale">$5.99</span><span class="ps-product__price">$11.90</span><span class="ps-product__off">20% Off</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ps-product--vertical">
+                        <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/07-Beer-WineSpirits/07_11a.jpg" alt="alt" /></a>
+                        <div class="ps-product__content">
+                            <h5><a class="ps-product__name" href="product-default.html">Honest Organic Still Beer</a></h5>
+                            <p class="ps-product__unit">4 per pack</p>
+                            <p class="ps-product-price-block">
+                                <span class="ps-product__price-default">$39.90</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-recent--default ps-home--block">
+    <div class="container">
+        <div class="ps-block__header">
+            <h3 class="ps-block__title">Your Recent Viewed</h3><a class="ps-block__view" href="shop-categories.html">View all <i class="icon-chevron-right"></i></a>
+        </div>
+        <div class="recent__content">
+            <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="8" data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="5" data-owl-item-lg="8" data-owl-item-xl="8" data-owl-duration="1000" data-owl-mousedrag="on">
+                <a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_1a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_2a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_30a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_10a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_18a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_28b.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_16a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_31a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_15a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_5a.jpg" alt="alt" /></a><a class="recent-item" href="shop-categories.html"><img src="../webcontent/img/products/01-Fresh/01_32a.jpg" alt="alt" /></a>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="popupQuickview" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl ps-quickview">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid quickview-body">
+                    <div class="row">
+                        <div class="col-12 col-lg-5">
+                            <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-item-xl="1" data-owl-duration="1000" data-owl-mousedrag="on">
+                                <div class="quickview-carousel"><img class="carousel__thumbnail" src="../webcontent/img/products/01-Fresh/01_1a.jpg" alt="alt" /></div>
+                                <div class="quickview-carousel"><img class="carousel__thumbnail" src="../webcontent/img/products/01-Fresh/01_2a.jpg" alt="alt" /></div>
+                                <div class="quickview-carousel"><img class="carousel__thumbnail" src="../webcontent/img/products/01-Fresh/01_4a.jpg" alt="alt" /></div>
+                                <div class="quickview-carousel"><img class="carousel__thumbnail" src="../webcontent/img/products/01-Fresh/01_9a.jpg" alt="alt" /></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-7">
+                            <div class="quickview__product">
+                                <div class="product__header">
+                                    <div class="product__title">Hovis Farmhouse Soft White Bread</div>
+                                    <div class="product__meta">
+                                        <div class="product__rating">
+                                            <select class="rating-stars">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4" selected="selected">4</option>
+                                                <option value="5">5</option>
+                                            </select><span>4 customer reviews</span>
+                                        </div>
+                                        <div class="product__code"><span>SKU: </span>#VEG20938</div>
+                                    </div>
+                                </div>
+                                <div class="product__content">
+                                    <div class="product__price"><span class="sale">$5.49</span><span class="price">$6.90</span><span class="off">25% Off</span></div>
+                                    <p class="product__unit">300g</p>
+                                    <div class="alert__success">Availability: <span>34 in stock</span></div>
+                                    <ul>
+                                        <li>Type: Organic</li>
+                                        <li>MFG: Jun 4, 2020</li>
+                                        <li>LIFE: 30 days</li>
+                                    </ul>
+                                </div>
+                                <div class="product__action">
+                                    <label>Quantity: </label>
+                                    <div class="def-number-input number-input safari_only">
+                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
+                                        <input class="quantity" min="0" name="quantity" value="1" type="number">
+                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
+                                    </div>
+                                    <button class="btn product__addcart"> <i class="icon-cart"></i>Add to cart</button>
+                                    <button class="btn button-icon icon-md"><i class="icon-repeat"></i></button>
+                                    <button class="btn button-icon icon-md"><i class="icon-heart"></i></button>
+                                </div>
+                                <div class="product__footer">
+                                    <div class="ps-social--share"><a class="ps-social__icon facebook" href="#"><i class="fa fa-thumbs-up"></i><span>Like</span><span class="ps-social__number">0</span></a><a class="ps-social__icon facebook" href="#"><i class="fa fa-facebook-square"></i><span>Like</span><span class="ps-social__number">0</span></a><a class="ps-social__icon twitter" href="#"><i class="fa fa-twitter"></i><span>Like</span></a><a class="ps-social__icon" href="#"><i class="fa fa-plus-square"></i><span>Like</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="popupAddToCart" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl ps-addcart">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="alert__success"><i class="icon-checkmark-circle"></i> "Morrisons The Best Beef Topside" successfully added to you cart. <a href="shopping-cart.html">View cart(3)</a></div>
+                    <hr>
+                    <h3 class="cart__title">CUSTOMERS WHO BOUGHT THIS ALSO BOUGHT:</h3>
+                    <div class="cart__content">
+                        <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="false" data-owl-dots="true" data-owl-item="4" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="2" data-owl-item-lg="4" data-owl-item-xl="4" data-owl-duration="1000" data-owl-mousedrag="on">
+                            <div class="cart-item">
+                                <div class="ps-product--standard">
+                                    <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_35a.jpg" alt="alt" /></a>
+                                    <div class="ps-product__content">
+                                        <p class="ps-product__type"><i class="icon-store"></i>Ecofarm</p><a href="product-default.html">
+                                            <h5 class="ps-product__name">Extreme Budweiser Light Can</h5>
+                                        </a>
+                                        <p class="ps-product__unit">500g</p>
+                                        <div class="ps-product__rating">
+                                            <select class="rating-stars">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4" selected="selected">4</option>
+                                                <option value="5">5</option>
+                                            </select><span>(4)</span>
+                                        </div>
+                                        <p class="ps-product-price-block">
+                                            <span class="ps-product__sale">$8.90</span><span class="ps-product__price">$9.90</span><span class="ps-product__off">15% Off</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cart-item">
+                                <div class="ps-product--standard">
+                                    <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_16a.jpg" alt="alt" /></a>
+                                    <div class="ps-product__content">
+                                        <p class="ps-product__type"><i class="icon-store"></i>Karery Store</p><a href="product-default.html">
+                                            <h5 class="ps-product__name">Honest Organic Still Lemonade</h5>
+                                        </a>
+                                        <p class="ps-product__unit">100g</p>
+                                        <div class="ps-product__rating">
+                                            <select class="rating-stars">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5" selected="selected">5</option>
+                                            </select><span>(14)</span>
+                                        </div>
+                                        <p class="ps-product-price-block">
+                                            <span class="ps-product__price-default">$1.99</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cart-item">
+                                <div class="ps-product--standard">
+                                    <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_12a.jpg" alt="alt" /></a>
+                                    <div class="ps-product__content">
+                                        <p class="ps-product__type"><i class="icon-store"></i>John Farm</p><a href="product-default.html">
+                                            <h5 class="ps-product__name">Natures Own 100% Wheat</h5>
+                                        </a>
+                                        <p class="ps-product__unit">100g</p>
+                                        <div class="ps-product__rating">
+                                            <select class="rating-stars">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select><span>(0)</span>
+                                        </div>
+                                        <p class="ps-product-price-block">
+                                            <span class="ps-product__price-default">$4.49</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cart-item">
+                                <div class="ps-product--standard">
+                                    <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/01-Fresh/01_15a.jpg" alt="alt" /></a>
+                                    <div class="ps-product__content">
+                                        <p class="ps-product__type"><i class="icon-store"></i>Ecofarm</p><a href="product-default.html">
+                                            <h5 class="ps-product__name">Avocado, Hass Large</h5>
+                                        </a>
+                                        <p class="ps-product__unit">300g</p>
+                                        <div class="ps-product__rating">
+                                            <select class="rating-stars">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3" selected="selected">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select><span>(6)</span>
+                                        </div>
+                                        <p class="ps-product-price-block">
+                                            <span class="ps-product__sale">$6.99</span><span class="ps-product__price">$9.90</span><span class="ps-product__off">25% Off</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cart-item">
+                                <div class="ps-product--standard">
+                                    <a href="product-default.html"><img class="ps-product__thumbnail" src="../webcontent/img/products/06-SoftDrinks-TeaCoffee/06_3a.jpg" alt="alt" /></a>
+                                    <div class="ps-product__content">
+                                        <p class="ps-product__type"><i class="icon-store"></i>Sun Farm</p><a href="product-default.html">
+                                            <h5 class="ps-product__name">Kevita Kom Ginger</h5>
+                                        </a>
+                                        <p class="ps-product__unit">200g</p>
+                                        <div class="ps-product__rating">
+                                            <select class="rating-stars">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4" selected="selected">4</option>
+                                                <option value="5">5</option>
+                                            </select><span>(6)</span>
+                                        </div>
+                                        <p class="ps-product-price-block">
+                                            <span class="ps-product__sale">$4.90</span><span class="ps-product__price">$3.99</span><span class="ps-product__off">15% Off</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

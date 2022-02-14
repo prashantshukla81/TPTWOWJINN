@@ -1,0 +1,85 @@
+﻿
+@{   
+    Layout = null;
+}
+@using System.Data;
+
+<div class="table-responsive">
+    <table class="table table-bordered table-sm has-checkAll mb-0" id="tbl_Products" style="font-size: 10px;" data-bulk-target="#bulk-dropdown" data-checked-class="table-warning">
+        <!-- Filter columns -->
+        <thead class="thead-primary">
+            <tr>
+                <th scope="col">
+                    <div class="custom-control custom-control-nolabel custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="checkAll">
+                        <label class="custom-control-label" for="checkAll"></label>
+                    </div>
+                </th>
+                <th scope="col" class="text-center">Sr.No</th>
+                <th scope="col" class="text-center">Image</th>
+                <th scope="col"><a href="javascript:void(0)" class="sorting asc">Product Title</a></th>
+                <th scope="col"><a href="javascript:void(0)" class="sorting asc">MRP</a></th>
+                <th scope="col"><a href="javascript:void(0)" class="sorting asc">Sale Rate</a></th>
+                <th scope="col"><a href="javascript:void(0)" class="sorting">Committed Qty.</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.dt != null && Model.dt.Rows.Count > 0)
+            {
+                int i = 0;
+                foreach (DataRow dr in Model.dt.Rows)
+                {
+                    i++;
+                    <tr class="" pId="@dr["ProductCode"]" vId="@dr["varId"]">
+                        <td>
+                            <div class="custom-control custom-control-nolabel custom-checkbox">
+                                @if (Convert.ToString(dr["assignStatus"]) != "")
+                                {
+                                    <input type="checkbox" class="custom-control-input" checked id="checkbox_@i">
+                                }
+                                else
+                                {
+                                    <input type="checkbox" class="custom-control-input" id="checkbox_@i">
+                                }                                
+                                <label for="checkbox_@i" class="custom-control-label"></label>
+                            </div>
+                        </td>
+                        <td class="text-center">@i</td>
+                        <td class="text-center"><img src="@dr["ProductImage"]" style="height:30px" /> </td>
+                        <td>
+                            @dr["ProductTitle"] <br />
+                            <span class="badge badge-dark">@dr["RootCategoryName"]</span>
+                        </td>
+                        <td><input type="text" id="txtMRP" /></td>
+                        <td><input type="text" id="txtSaleRate" /></td>
+                        <td><input type="text" id="txtQty" /></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        <div class="container pt-3">
+                            <div class="row justify-content-center text-center">
+                                <div class="col-8 col-lg-6 col-xl-5">
+                                    <img src="~/AdminAsset/img/404.svg" class="img-fluid" alt="Page not found">
+                                </div>
+                                <div class="col-12 my-3">
+                                    <h2>Oopps. The Record you looking for does not exist.</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table><!-- /.table -->
+
+</div>
+
+
+
+
+

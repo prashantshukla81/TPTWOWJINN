@@ -1,0 +1,286 @@
+﻿
+@{
+    ViewBag.Title = "VenderRegistration";
+    Layout = "~/Views/Shared/_webLayouts.cshtml";
+}
+<script>
+
+    function InsertRetailers() {
+        debugger;
+
+        var fileKycDoc = $("#fuKycDoc").get(0).files;
+        var fuPan = $("#fuPan").get(0).files;
+        var fuTAN = $("#fuTAN").get(0).files;
+
+
+
+        if ($("#txtBusinessName").val() == "") {
+            alert("Please Enter Business Name !");
+            $("#txtBusinessName").focus();
+            return;
+        }
+        if ($("#txtContactPerson").val() == "") {
+            alert("Please Enter Contact Person Name !");
+            $("#txtContactPerson").focus();
+            return;
+        }
+        if ($("#txtMobileNo").val() == "") {
+            alert("Please Enter Mobile No.!");
+            $("#txtMobileNo").focus();
+            return;
+        }
+        if ($("#txtEmailId").val() == "") {
+            alert("Please Enter Email Address !");
+            $("#txtEmailId").focus();
+            return;
+        }
+        if ($("#ddlKYCDoc").val() == "" || $("#ddlKYCDoc").val() == "0") {
+            alert("Please Select KYC Document !");
+            $("#ddlKYCDoc").focus();
+            return;
+        }
+        if ($("#txtKYCDocNo").val() == "") {
+            alert("Please Enter KYC Document Number !");
+            $("#txtKYCDocNo").focus();
+            return;
+        }
+        if (fileKycDoc.length <= 0) {
+            alert('Please Upload KYC Document !');
+            return;
+        }
+        if ($("#txtPANNo").val() == "") {
+            alert("Please Enter PAN No. !");
+            $("#txtPANNo").focus();
+            return;
+        }
+
+        if (fuPan.length <= 0) {
+            alert('Please Upload PAN Document !');
+            return;
+        }
+
+
+        var data = new FormData;
+        data.append("MainImage", fileKycDoc[0]);
+        data.append("fuPan", fuPan[0]);
+        data.append("fuTAN", fuTAN[0]);
+        data.append("Action", '1');
+        data.append("AccName", $("#txtContactPerson").val());
+        data.append("ContactNo", $("#txtMobileNo").val());
+        data.append("EmailAddress", $("#txtEmailId").val());
+        data.append("Address", $("#txtAddress").val());
+        data.append("GstNo", null);
+        data.append("TINNo", null);
+        data.append("PanNo", $("#txtPANNo").val());
+        data.append("DepartmentName", $("#txtBusinessName").val());
+        data.append("AccCode", $("#ddlZone").val());
+        data.append("AccountType", $("#ddlKYCDoc").val());
+        data.append("kycdocumentno", $("#txtKYCDocNo").val());
+        data.append("TanNo", $("#txtTANNo").val());
+        data.append("BanKAccName", $("#txtAccName").val());
+        data.append("accountno", $("#txtAccNumber").val());
+        data.append("Bankname", $("#txtBankName").val());
+        data.append("ifsccode", $("#txtifscCode").val());
+        data.append("RespoCode", null);
+
+
+        $("#showSpinner").show();
+        $.ajax({
+            url: "../Retailers/InsertUpdateCompanyDetails",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                if (r.strId == '1') {
+                    //alert(r.msg);
+                    alert('Vender Successfull Registerd')
+                    location.reload();
+                    $("#showSpinner").hide();
+
+                }
+                else {
+                    alert(r.msg);
+                    $("#showSpinner").hide();
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+</script>
+
+<div class="container">
+
+    <center><h1 style="color:blue;font-weight:bolder;">Vender Registraion</h1></center>
+    <div class="col-sm-12" style="background:white;">
+
+        <div class="form-group">
+            <span style="font-size: 20px;font-weight: bold;color: #f77e2f;">Basic Details</span>
+        </div>
+        <hr />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="emailGrid">Business Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="txtBusinessName" placeholder="Business Name" autocomplete="off">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="passwordGrid">Contact Person<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="txtContactPerson" placeholder="Contact Person">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="emailGrid">Mobile No.<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="txtMobileNo" placeholder="Mobile No." autocomplete="off">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="passwordGrid">Email Address<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="txtEmailId" placeholder="Email Address" autocomplete="off">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="passwordGrid">Select Zone</label>
+                <select id="ddlZone" class="custom-select form-control">
+                    <option>Select</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="addressGrid">Address</label>
+            <input type="text" class="form-control" id="txtAddress" placeholder="Address" autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <span style="font-size: 20px;font-weight: bold;color: #f77e2f;">KYC Documents</span>
+        </div>
+        <hr />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="emailGrid">KYC Document<span class="text-danger">*</span></label>
+                <select id="ddlKYCDoc" class="custom-select form-control">
+                    <option>Select KYC Document</option>
+                    <option>Firm Registration</option>
+                    <option>GSTIN Registration</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="passwordGrid">KYC Document No.<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="txtKYCDocNo" placeholder="KYC Document No." autocomplete="off">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label for="emailGrid">Upload KYC Document<span class="text-danger">*</span></label>
+                <input type="file" id="fuKycDoc" />
+                <small id="fullNameHelp" class="form-text text-muted">Upload .jpg,.png,.pdf file only.<span style="color:red">(Max. 2MB)</span></small>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="passwordGrid">PAN No.<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="txtPANNo" placeholder="PAN No." autocomplete="off">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="passwordGrid">TAN No.</label>
+                <input type="text" class="form-control" id="txtTANNo" placeholder="TAN No." autocomplete="off">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label for="emailGrid">Upload PAN<span class="text-danger">*</span></label>
+                <input type="file" id="fuPan" />
+                <small id="fullNameHelp" class="form-text text-muted">Upload .jpg,.png,.pdf file only.<span style="color:red">(Max. 2MB)</span></small>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label for="emailGrid">Upload TAN Certificate</label>
+                <input type="file" id="fuTAN" />
+                <small id="fullNameHelp" class="form-text text-muted">Upload .jpg,.png,.pdf file only.<span style="color:red">(Max. 2MB)</span></small>
+            </div>
+        </div>
+        
+        <div class="form-row">
+          
+           
+           
+            <div class="form-group col-md-6">
+                
+                <label for="emailGrid">Account Holder's Name</label>
+                <input type="text" class="form-control" id="txtAccName" placeholder="Account Holder's Name" autocomplete="off">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="passwordGrid">Account Number</label>
+                <input type="text" class="form-control" id="txtAccNumber" placeholder="Account Number" autocomplete="off">
+            </div>
+          
+        </div>
+       
+        <hr />
+        <div class="form-row">
+           
+            <div class="form-group col-md-6">
+                <label for="emailGrid">Bank Name</label>
+                <input type="text" class="form-control" id="txtBankName" placeholder="Bank Name" autocomplete="off">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="passwordGrid">IFSC Code</label>
+                <input type="text" class="form-control" id="txtifscCode" placeholder="IFSC Code" autocomplete="off">
+            </div>
+        </div>
+       
+        <hr />
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="button" class="btn btn-primary" onclick="InsertRetailers()">Create Account</button>
+            </div>
+            <div class="form-group col-md-6">
+               
+            </div>
+        </div>
+       
+      
+
+
+
+<!-- New Thread Modal -->
+<div class="modal fade" id="threadModal" tabindex="-1" role="dialog" aria-labelledby="threadModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header d-flex align-items-center">
+                    <h6 class="modal-title mb-0" id="threadModalLabel">New Discussion</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="threadTitle">Title</label>
+                        <input type="text" class="form-control" id="threadTitle" placeholder="Enter title" autofocus>
+                    </div>
+                    <textarea class="form-control summernote"></textarea>
+                    <div class="custom-file form-control-sm mt-3" style="max-width: 300px">
+                        <input type="file" class="custom-file-input" id="customFile" multiple>
+                        <label class="custom-file-label" for="customFile">Attachment</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+        <
+   </div></div>

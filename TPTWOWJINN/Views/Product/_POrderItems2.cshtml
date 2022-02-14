@@ -1,0 +1,131 @@
+﻿
+@{
+    Layout = null;
+}
+@using System.Data;
+@model DataSet
+
+<script>
+    function Orderaccepted(orderid, stringvalue, productid,Action) {
+        var a = confirm('Are you Sure Want change Order Status');
+        if (a == true) {
+            $.ajax({
+                url: "@Url.Action("OrderUpdate", "Product")",
+                method: "POST",
+                data: { Orderid: orderid, Stringvalue: stringvalue, Productid: productid, Action: Action },
+               // contentType: "application/json",
+                //dataType:"json",
+                success: function (r) {
+                    window.location.reload(true);
+                },
+                error: function (r) {
+                    window.location.reload(true);
+                }
+            })
+        }
+
+    }
+</script>
+
+<a href="#" class="btn btn-light btn-sm mb-3 has-icon" data-toggle="collapse" data-target=".forum-content"><i class="material-icons mr-2">keyboard_return</i>Back</a>
+
+@if (Model.Tables[1] != null)
+{
+    <div class="card mb-2">
+        <div class="card-body">
+            <div class="media forum-item">
+                <a href="javascript:void(0)" class="card-link">
+                    <img src="../Images/orderListIco.png" class="rounded-circle" width="50" alt="User">
+                    <small class="d-block text-center text-muted"></small>
+                </a>
+                <div class="media-body ml-3">
+                    <a href="javascript:void(0)" class="text-secondary">Order Id: ViewBag.data</a>
+                    <small class="text-muted ml-2">Model.dt1.Rows[0]["OrderDate"]</small>
+
+                    <h5 class="mt-1">Order Amount:  @ViewBag.totalamt</h5>
+                    @foreach (DataRow dr in Model.Tables[1].Rows)
+                    {
+                        <div class="mt-3 font-size-sm" pId="@dr["orderId"]">
+                            <div class="media forum-item">
+                                <div class="card mb-2">
+                                    <div class="card-body p-2 p-sm-5">
+                                        <div class="media forum-item">
+                                            <a href="#" data-toggle="collapse" data-target=".forum-content"><img src="@dr["Path"]" class="mr-3" style="width: 113px;height: 132px;border-radius: 13px;border-color: green;"></a>
+                                            <div class="media-body">
+                                                <h6><a href="javascript:void(0);" data-toggle="collapse" class="text-body">@dr["ProductTitle"]</a></h6>
+                                                <p class="text-secondary">
+                                                    <strong>Total Cost: </strong> <span style="color:red">@dr["SaleRate"]</span> | <strong>Quantity: </strong> <span style="color:green">@dr["Qty"]</span>
+                                                </p><br />
+                                                @*<p>
+                                                        <strong>Category:</strong> <span class="badge badge-dark">@dr["RootCategoryName"]</span>
+                                                    </p>*@
+                                                @*@if (Convert.ToString(dr["VarName"]) != "")
+                                                    {
+                                                        <p class="text-muted">@dr["VarName"]</p>
+                                                    }*@
+                                                <div class="row">
+                                                    <p>
+                                                        <a href="javascript:void(0);">     <span class="badge badge-primary" style="margin-left:5px;">Order Placed</span></a><span class="badge badge-primary" style="margin-left:5px;">@dr["Entrydate"]</span><br />
+                                                        <a href="javascript:void(0);">     <span class="badge badge-warning" onclick="Orderaccepted('@dr["orderId"]','Order accepted','@dr["ProductId"]','1')" style="margin-left:5px;">Order accepted</span></a><span class="badge badge-warning" style="margin-left:5px;">@dr["Orderaccepted"]</span><br />
+                                                        <a href="javascript:void(0);">     <span class="badge badge-dark" onclick="Orderaccepted('@dr["orderId"]','Order Dispatched','@dr["ProductId"]','2')" style="margin-left:5px;">Order Dispatched</span></a><span class="badge badge-dark" style="margin-left:5px;">@dr["DispatchdDate"]</span><br />
+                                                        <a href="javascript:void(0);">     <span class="badge badge-success" onclick="Orderaccepted('@dr["orderId"]','Delivered','@dr["ProductId"]','3')" style="margin-left:5px;">Delivered</span></a><span class="badge badge-success" style="margin-left:5px;">@dr["Dileverydate"]</span><br />
+
+
+                                                        @*@if (Convert.ToString(dr["status"]) == "Order Placed")
+                                                            {
+                                                                <span class="badge badge-primary">@dr["status"]</span>
+                                                            }
+                                                            else if (Convert.ToString(dr["status"]) == "Accepted")
+                                                            {
+                                                                <span class="badge badge-info">@dr["status"]</span>
+                                                            }
+                                                            else if (Convert.ToString(dr["status"]) == "Dispatched")
+                                                            {
+                                                                <span class="badge badge-dark">@dr["status"]</span>
+                                                            }
+                                                            else if (Convert.ToString(dr["status"]) == "Delivered")
+                                                            {
+                                                                <span class="badge badge-success">@dr["status"]</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge badge-danger">@dr["status"]</span>
+                                                            }*@
+                                                    </p>
+                                                </div>
+                                                <div class="row">
+                                                    <p>
+
+
+
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="text-muted small text-center">
+                    @*<a href="#" class="btn btn-outline-primary btn-sm"><i class="material-icons">input</i> Forword</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+
+

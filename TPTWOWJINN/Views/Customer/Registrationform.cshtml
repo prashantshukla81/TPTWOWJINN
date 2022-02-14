@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "Registrationform";
+    Layout = "~/Views/Shared/_webLayouts.cshtml";
+}
+<script src="~/assets/js/jquery-1.11.1.min.js"></script>
+<script>
+    function reset() {
+        $('#txtlogemail').val('');
+        $('#txtname').val('');
+        $('#txtphone').val('');
+        $('#txtcpassword').val('');
+        $('#txtpassword').val('');
+    }
+
+
+    //GetLogInDetails
+    function login() {
+        if ($('#exampleInputEmail1').val() == '') {
+            alert('Please Enter Your Mobile Number');
+            $('#exampleInputEmail1').focus();
+            return;
+        }
+
+        if ($('#exampleInputPassword1').val() == '') {
+            alert('Please Enter Password ! ! !');
+            $('#exampleInputPassword1').focus();
+            return;
+
+        }
+        $.ajax({
+            url: "@Url.Action("GetLogInDetails", "Account")",
+            method: "POST",
+            data: { UserName: $('#exampleInputEmail1').val(), Password: $('#exampleInputPassword1').val() },
+            success: function (r) {
+
+                //alert(r.strId);
+                if (r.strId == '4') {
+                    alert('Log in Success');
+                    window.location.href = '@Url.Action("Index", "web")';
+                }
+                @*else
+                {
+                    @Session["Name"]==null;
+                    window.location.href = '@Url.Action("Index", "web")';
+                }*@
+
+            },
+            error: function (r) {
+                alert('Error')
+            }
+
+        })
+    }
+
+    function Registraion() {
+        if ($('#txtlogemail').val() == '') {
+            alert('Pleasee enter Your Email Id');
+            $('#exampleInputEmail2').focus();
+            return;
+        }
+
+        if ($('#txtname').val() == '') {
+            alert('Pleasee enter Your Name');
+            $('#txtname').focus();
+            return;
+        }
+
+        //txtphone
+
+        if ($('#txtphone').val() == '') {
+            alert('Pleasee enter Your Phone Number');
+            $('#txtphone').focus();
+            return;
+        }
+        if ($('#txtpassword').val() == '') {
+            alert('Pleasee enter Password');
+            $('#txtpassword').focus();
+            return;
+        }
+        if ($('#txtpassword').val() != $('#txtcpassword').val()) {
+            alert('Password and Confirm Password Should Be Same!')
+            return;
+        }
+        if ($('#random').text() != $('#ran').val()) {
+            alert('Please Enter Valid Capture');
+            changefunction();
+            return;
+        }
+        $.ajax({
+            url: "@Url.Action("customerRegistration","Customer")",
+            method: "post",
+            data: { UserName: $('#txtphone').val(), Password: $('#txtpassword').val(), name: $('#txtname').val(), Action: 1, Gender: $('#gender').val() },
+            success: function (r) {
+                alert('Thank you for your registration! ');
+                $('#txtlogemail').val('');
+                $('#txtname').val('');
+                $('#txtphone').val('');
+                $('#txtcpassword').val('');
+                $('#txtpassword').val('');
+
+            },
+            error: function (r) {
+                alert('error');
+            }
+        })
+    }
+
+    //function changefunction() {
+    //    document.getElementById("random").innerHTML = Math.ceil(Math.random() * 999999);
+    //}
+
+
+    function changefunction() {
+        var H = "09621azxcv543bnmjhgfredswfqASDFGH87JNBVCXZWQERT"
+        // document.getElementById("random").innerHTML = Math.ceil(Math.random() * 999999);
+        var res = "";
+
+        for (i = 1; i <=6; i++) {
+            sindex = Math.floor(Math.random() * 48)
+            res += H.charAt(sindex)
+
+
+        }
+        document.getElementById("random").innerHTML = res;
+        //   alert(res)
+
+    }
+
+
+
+
+    function mobilelength() {
+
+        var a = $('#txtphone').val().length;
+        if (a > 10) {
+            alert('Mobile number should be 10 Digit and numeric value');
+           return ''
+
+        }
+
+    }
+
+</script>
+<div class="body-content">
+    <div class="container">
+        <div class="sign-in-page">
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-md-6 col-sm-6 sign-in" id="log">
+                    <h4 class="">Sign in</h4>
+                    <p class="">Hello, Welcome to your account.</p>
+                    <div class="social-sign-in outer-top-xs">
+                        <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with Facebook</a>
+                        <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
+                    </div>
+                    <form class="register-form outer-top-xs" role="form">
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Registerd Mobile No. <span>*</span></label>
+                            <input type="number" onkeyup="mobilelength()" maxlength="10" class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1">
+                        </div>
+                        <div class="radio outer-xs">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Remember me!
+                            </label>
+                            <a href="#" class="forgot-password pull-right">Forgot your Password?</a><br />
+                            <a href="javascript:void(0);" onclick="formshow()" class="forgot-password pull-right">Create Account</a><br />
+                        </div>
+                        <button type="button" class="btn-upper btn btn-primary checkout-page-button" onclick="login()">Login</button>
+                    </form>
+                </div>
+                <div class="col-sm-3"></div>
+                <!-- create a new account -->
+                <!-- create a new account -->
+
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-md-6 col-sm-6 create-new-account" id="create">
+                    <h4 class="checkout-subtitle">Create a new account <span style="float:right;color:blue" onclick="create()">LOG IN</span></h4>
+                    <p class="text title-tag-line">Create your new account. </p>
+
+                    <form class="register-form outer-top-xs" role="form">
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" id="txtlogemail">
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
+                            <input type="text" class="form-control unicase-form-control text-input" id="txtname">
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Phone Number <span>*</span></label>
+                            <input type="number" maxlength="10" class="form-control unicase-form-control text-input" id="txtphone" onkeyup="mobilelength()">
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="txtpassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Confirm Password <span>*</span></label>
+                            <input type="password" class="form-control unicase-form-control text-input" id="txtcpassword">
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Gender <span>*</span></label>
+                            <select id="gender" class="form-control unicase-form-control text-input" style="float:left;">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            @*<label class="info-title" for="exampleInputEmail1">Gender <span>*</span></label>*@
+                            <span class="form-control  unicase-form-control text-input" style="width:40%;float:left;color:black;border:none;"><s><span id="random">ATBYNU</span></s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" onclick="changefunction()" aria-hidden="true"></i></span>
+
+                            <input type="text" placeholder="Enter Capture Code" id="ran" class="form-control unicase-form-control" style="width:40%;margin-left:50px;" />
+                        </div>
+
+
+
+                        <button type="submit" onclick="Registraion()" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+                        <button type="button" onclick="reset()" class="btn-upper btn btn-danger checkout-page-button">Cancel</button>
+                    </form>
+
+
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+        </div><!-- /.sigin-in-->
+        <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+
+    </div><!-- /.container -->
+</div><!-- /.body-content -->
+<script>
+    $(document).ready(function () {
+        $('#create').hide();
+    })
+    function formshow() {
+        $('#create').show();
+        $('#log').hide();
+    }
+
+    function create() {
+        $('#create').hide();
+        $('#log').show();
+    }
+
+</script>

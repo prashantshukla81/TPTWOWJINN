@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = null;
+    Layout = null;
+}
+@model MDYOS.Models.PropertyClass
+@using System.Data;
+
+
+
+<script>
+    function showlocation() {
+        var a = $('#area').find("option:selected").text();
+        if (a == 'Select') {
+            alert('Please Select Area');
+            return;
+        }
+        debugger;
+        $.ajax({
+            url: "@Url.Action("Savelocation", "Web")",
+            method: "POST",
+            data: { value: a },
+            success: function (r) {
+                window.location.reload(true);
+
+
+
+            },
+            error: function (r) {
+                alert('Error');
+
+            }
+        })
+    }
+
+</script>
+
+<div class="modal-dialog" id="md" style="z-index: 1;position:fixed;left:443px;">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" id="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title"><i class="fa fa-map-marker" style="color:#0c73bb;"></i>&nbsp;&nbsp;&nbsp;Select Area/Zone</h4>
+        </div>
+        <div class="modal-body">
+            <select class="form-control" id="area">
+                <option>Select</option>
+                @if (Model.dt.Rows.Count > 0 && Model.dt != null)
+                {
+                    foreach (DataRow item in Model.dt.Rows)
+                    {
+                        <option>@item["AreaName"], @item["Pincode"]</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <div class="modal-footer">
+            <input type="button" onclick="showlocation()" class="btn btn-primary" data-dismiss="modal" value="Save" />
+        </div>
+    </div>
+</div>

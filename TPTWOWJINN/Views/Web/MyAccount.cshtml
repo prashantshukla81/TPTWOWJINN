@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "MyAccount";
+    Layout = "~/Views/Shared/_webLayouts.cshtml";
+}
+@using System.Data;
+@model DataSet
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/AdminAsset/js/jquery.min.js"></script>
+<style>
+    .s {
+        background: #f7faf9;
+        color: black;
+        margin: 5px;
+        font-size: 20px;
+        border-bottom: 1px solid gray;
+        // box-shadow:3px 3px 3px 3px;
+    }
+
+        .s i {
+            margin-left: 15px;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#myorder1').hide();
+        $('#profile1').show();
+        $('#profile').click(function () {
+            $('#myorder1').hide();
+            $('#profile1').show()
+        });
+        $('#myorder').click(function () {
+            $('#profile1').hide()
+            $('#myorder1').show();
+        })
+    })
+</script>
+<script>
+    function updtaeprofile(id) {
+        //alert(id);
+        var mm = confirm('Are You syre want to Update Your Record?')
+        if (mm == true) {
+            var obj = {
+                mobile: id, Action: 3, name: $('#name').val(), email: $('#email').val()
+            }
+            $.ajax({
+                url: "@Url.Action("updatepropfile", "Customer")",
+                method: "POST",
+                data: JSON.stringify(obj),
+                contentType: "application/json",
+                success: function (r) {
+                    alert('Profile Update Successfully !!');
+                },
+                error: function (r) {
+                    alert('error');
+                }
+
+
+            })
+        }
+    }
+</script>
+<div class="body-content">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <ul>
+                    <a href="#">
+                        <li class="s" id="profile"> <i class="fa fa-user" aria-hidden="true" style="color:#00acf7"></i> &nbsp;  &nbsp;  Profile</li>
+                    </a>
+                    <a href="#">
+                        <li class="s" id="myorder"> <i class="fa fa-shopping-cart" aria-hidden="true" style="color:orangered"></i>&nbsp;  &nbsp;  My Order</li>
+                    </a>
+                    <a href="#">    <li class="s" id="bell"><i class="fa fa-bell" aria-hidden="true" style="color:#f4d184"></i> &nbsp;  &nbsp;  Notification</li></a>
+                    <a href="../Web/Logout"><li class="s"><i class="fa fa-sign-out" aria-hidden="true" style="color:red;"></i> &nbsp;  &nbsp;  Log Out</li></a>
+                </ul>
+            </div>
+            @if (Model.Tables[0] != null)
+            {
+                foreach (DataRow item in Model.Tables[0].Rows)
+                {
+                     <!--for profile-->
+                    <div class="col-sm-9">
+                        <div class="col-sm-12" style="background-color:white;border:1px solid black; font-family:'Times New Roman'" ; id="profile1">
+                            <h4>Personal Information</h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <input type="text" value="@item["CustomerName"]" id="name" class="form-control" style="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <input type="text" value="Registration Date:@item["EntryDate"]" readonly id="lastname" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <h4>Email Address</h4>
+                                            <input type="text" value="@item["EmailAddress"]" id="email" class="form-control" style="" />
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            <h4>Mobile Number</h4>
+                                            <input type="text" value="@Session["UserName"]" readonly id="mobile" class="form-control" style="" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <br />
+                                        <div class="col-sm-3"><input type="button" onclick="updtaeprofile('@Session["UserName"]')" class="btn btn-primary form-control" value="Update" /></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+
+
+                        </div>
+                    </div>
+
+                }
+
+            }
+
+
+            <!--myorder-->
+            <div id="myorder1">
+                @if (Model.Tables[1] != null)
+                {
+                    foreach (DataRow item in Model.Tables[1].Rows)
+                    {
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9">
+                            <div class="col-sm-12" style="background-color:white;border:none;margin-top:10px; font-family:'Times New Roman'" ; id="">
+
+                                <div class="row" style="margin-top:10px;">
+                                    <div class="col-sm-2">
+                                        <img src="../ProductImages/@item["MainImgFile"]" style="width:100%;height:100px;" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span style="font-size:20px;">@item["ProductTitle"]</span><br />
+                                        <span>Quantity</span><span style="font-size:15px;">@item["Qty"]</span><br />
+                                        <span>Seller</span><span>@item["RetailerName"]</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span>Rs.</span><span style="font-size:15px;">@item["SaleRate"]</span><br />
+                                        <span>Place Order :@item["Orderaccepted"]</span><br />
+                                        @if (@item["Orderaccepted"].ToString() != " ")
+                                        {
+                                            <span>Order Accepeted: @item["Orderaccepted"]</span><br />
+                                        }
+                                        @if (@item["DispatchdDate"].ToString() != " ")
+                                        {
+                                            <span>Order Dispatched: @item["DispatchdDate"]</span><br>
+                                        }
+                                        @if (@item["Dileverydate"].ToString() != " ")
+                                        {
+                                            <span>Order Delivered: @item["Dileverydate"]</span>
+                                        }
+
+                                    </div>
+
+
+                                    @*<div class="col-sm-5">
+                                            <span style="font-size:20px;">Delivered</span>
+                                            <span style="color:red; font-size:16px;">&nbsp; @item["orderstatus"]</span>
+                                        </div>*@
+
+                                    @*else if (@item["orderstatus"].ToString() == "Order Placed")
+                                        {
+                                            <div class="col-sm-5">
+                                                <span style="font-size:20px;">Order Placed</span>
+                                                <span style="color:red; font-size:16px;">&nbsp; Order Cancel</span>
+                                            </div>
+                                        }*@
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />

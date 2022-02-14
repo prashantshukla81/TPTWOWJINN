@@ -1,0 +1,821 @@
+﻿
+@{
+    ViewBag.Title = "CheckoutProduct";
+    Layout = "~/Views/Shared/_webLayouts.cshtml";
+}
+@using System.Data;
+@model DataSet
+<script>
+    function deletecheckout(Productid,custid,Srno)
+    {
+        var mm=confirm('Are you sure want to delete this Record?')
+        if(mm==true)
+        {
+            var std = {};
+
+            $.ajax({
+
+                url: '@Url.Action("DeleteCheckoutproduct","Web")',
+                method: "POST",
+                data: {action:'6',srno:Productid,CustomerCode:custid},
+
+                success: function () {
+                    alert("Product Delete  successfully.");
+                    window.location.reload(true);
+                },
+                error: function () {
+                    alert("Error while inserting data");
+                }
+            });
+        }
+    }
+</script>
+<div class="body-content">
+    <div class="container">
+        <div class="checkout-box ">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="panel-group checkout-steps" id="accordion">
+                        <!-- checkout-step-01  -->
+                        <div class="panel panel-default checkout-step-01">
+                            <!-- panel-heading -->
+                            <div class="panel-heading">
+                                <h4 class="unicase-checkout-title">
+                                    <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+                                        <span>1</span>Checkout Products
+                                    </a>
+                                </h4>
+                            </div>
+                            <!-- panel-heading -->
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <!-- panel-body  -->
+                                <!-- panel-body  -->
+                                <div class="search-result-container ">
+                                    <div id="myTabContent" class="tab-content category-list">
+
+                                        <!-- /.tab-pane -->
+
+                                        <div class="tab-pane  active" id="list-container">
+                                            <div class="category-product">
+                                                <div class="category-product-inner wow fadeInUp animated animated" style="visibility: visible; animation-name: fadeInUp;">
+                                                    <div class="products">
+                                                        <div class="product-list product">
+                                                            @if (Model.Tables[0] != null)
+                                                            {
+                                                                foreach (DataRow item in Model.Tables[0].Rows)
+                                                                {
+
+                                                                    <div class="row product-list-row" pid="@item["ProductId"]" unitrate="@item["unitrate"]">
+                                                                        <div class="col col-sm-4 col-lg-4">
+                                                                            <div class="product-image">
+                                                                                <div class="image"> <img src="@item["Path"]" alt=""> </div>
+                                                                            </div>
+                                                                            <!-- /.product-image -->
+                                                                        </div>
+                                                                        <!-- /.col -->
+                                                                        <div class="col col-sm-8 col-lg-8">
+                                                                            <div class="product-info">
+                                                                                <h3 class="name"><a href="/Product/ProductDetails">@item["ProductTitle"]</a></h3>
+                                                                                @*<div class="rating rateit-small rateit"><button id="rateit-reset-14" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-14" style=""></button><div id="rateit-range-14" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-14" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-readonly="false" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 0px; display: block;"></div><div class="rateit-hover" style="height: 14px; width: 0px; display: none;"></div></div><button id="rateit-reset-4" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-4"></button><div id="rateit-range-4" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-4" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-readonly="false" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 0px; display: block;"></div><div class="rateit-hover" style="height: 14px; width: 0px; display: none;"></div></div></div>*@
+                                                                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                                                    <button type="button" onclick="Updatecart(this,'S','@item["ProductId"]')" class="btn btn-danger b2"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                                                                    <input type="text" style="width:50px" class="btn btn-default t1" min="1" max="6" id="txtqty" value="@item["Quantity"]" width="10px;" />
+                                                                                    <button type="button" onclick="Updatecart(this,'A','@item["ProductId"]')" class="btn btn-success b1"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                                                                </div>
+                                                                                <div class="product-price"> <span class="price"> Rs.<span id="txtsalerate">@item["SaleRate"] </span></span> <span class="price-before-discount">Rs.@item["ProductMRP"]</span></div>
+                                                                                <!-- /.product-price -->
+                                                                                <div class="description m-t-10">Retailer Name : <span class="price" style="font-weight:bolder;"> @item["RetailerName"] </span></div>
+                                                                                <span style="color:red;"><a href="javascript:void(0);" onclick="deletecheckout('@item["ProductId"]','@Session["UserName"]','@item["SrNo"]')">Remove</a> </span>
+                                                                                @*<div class="description m-t-10">@Html.Raw(@item["ProductDescription"])</div>*@
+                                                                                <div class="cart clearfix animate-effect">
+                                                                                    @*<div class="action">
+                                                                                            <ul class="list-unstyled">
+                                                                                                <li class="add-cart-button btn-group">
+                                                                                                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
+                                                                                                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                                                                                </li>
+                                                                                                <li class="lnk wishlist"> <a class="add-to-cart" href="/Product/ProductDetails" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                                                                <li class="lnk"> <a class="add-to-cart" href="/Product/ProductDetails" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                                                                                            </ul>
+                                                                                        </div>*@
+                                                                                    <!-- /.action -->
+                                                                                </div>
+                                                                                <!-- /.cart -->
+
+                                                                            </div>
+                                                                            <!-- /.product-info -->
+                                                                        </div>
+                                                                        <!-- /.col -->
+                                                                    </div>
+                                                                }
+                                                            }
+
+
+                                                            <!-- /.product-list-row -->
+                                                            @*<div class="tag new"><span></span>new</div>*@
+                                                        </div>
+                                                        <!-- /.product-list -->
+                                                    </div>
+                                                    <!-- /.products -->
+                                                </div>
+                                                <!-- /.category-product-inner -->
+
+
+
+
+                                            </div>
+                                            <!-- /.category-product -->
+                                        </div>
+                                        <!-- /.tab-pane #list-container -->
+                                    </div>
+                                    <!-- /.tab-content -->
+                                    <!-- /.filters-container -->
+
+                                </div>
+                            </div><!-- row -->
+                        </div>
+                        <!-- checkout-step-01  -->
+                        <!-- checkout-step-02  -->
+                        @if (Model.Tables[1].Rows.Count>0)
+                        {
+                            foreach (DataRow item in Model.Tables[1].Rows)
+                            {
+                                <div class="panel panel-default checkout-step-02">
+                                    <div class="panel-heading">
+                                        <h4 class="unicase-checkout-title">
+                                            <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
+                                                <span>2</span>Address
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+
+                                                    <input type="text" id="txtadname" value="@item["FullName"]" max="10" class="form-control" placeholder="Name" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+
+                                                    <input type="text" id="txtadmobile" value="@item["Mobilenumber"]" class="form-control" placeholder="10-digit mobile number" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="number" id="txtadpincode" value="@item["Pincode"]" class="form-control" placeholder="Pincode" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" id="txtadLocality" class="form-control" value="@item["Locality"]" placeholder="Locality" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <textarea style="height:15%" id="txtadAreaandStreet" class="form-control" placeholder="Address (Area and Street)">@item["Address"]</textarea>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+
+                                                    <input type="text" value="City" id="txtadcity" class="form-control" placeholder="City" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+
+                                                    <select class="form-control" id="txtadstate">
+                                                        <option value="" disabled="" selected>@item["State"]</option>
+                                                        <option value="Andaman &amp; Nicobar Islands">Andaman &amp; Nicobar Islands</option>
+                                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                        <option value="Assam">Assam</option>
+                                                        <option value="Bihar">Bihar</option>
+                                                        <option value="Chandigarh">Chandigarh</option>
+                                                        <option value="Chhattisgarh">Chhattisgarh</option>
+                                                        <option value="Dadra &amp; Nagar Haveli">Dadra &amp; Nagar Haveli</option>
+                                                        <option value="Daman and Diu">Daman and Diu</option>
+                                                        <option value="Delhi">Delhi</option>
+                                                        <option value="Goa">Goa</option>
+                                                        <option value="Gujarat">Gujarat</option>
+                                                        <option value="Haryana">Haryana</option>
+                                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                        <option value="Jammu &amp; Kashmir">Jammu &amp; Kashmir</option>
+                                                        <option value="Jharkhand">Jharkhand</option>
+                                                        <option value="Karnataka">Karnataka</option>
+                                                        <option value="Kerala">Kerala</option>
+                                                        <option value="Ladakh">Ladakh</option>
+                                                        <option value="Lakshadweep">Lakshadweep</option>
+                                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                        <option value="Maharashtra">Maharashtra</option>
+                                                        <option value="Manipur">Manipur</option>
+                                                        <option value="Meghalaya">Meghalaya</option>
+                                                        <option value="Mizoram">Mizoram</option>
+                                                        <option value="Nagaland">Nagaland</option>
+                                                        <option value="Odisha">Odisha</option>
+                                                        <option value="Puducherry">Puducherry</option>
+                                                        <option value="Punjab">Punjab</option>
+                                                        <option value="Rajasthan">Rajasthan</option>
+                                                        <option value="Sikkim">Sikkim</option>
+                                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                                        <option value="Telangana">Telangana</option>
+                                                        <option value="Tripura">Tripura</option>
+                                                        <option value="Uttarakhand">Uttarakhand</option>
+                                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                        <option value="West Bengal">West Bengal</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" id="txtadLandmark" value="@item["Landmark"]" class="form-control" placeholder="Landmark (Optional)" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" id="txtadAlternate" value="@item["Alternatemobile"]" class="form-control" placeholder="Alternate Phone (Optional)" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Address Type</label>
+                                                <div class="row">
+
+                                                    <div class="form-group">
+                                                        &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;        &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;
+                                                        <input type="radio" name="txtadr" id="txtadr" value="Home (All day delivery)">&nbsp;&nbsp; Home (All day delivery
+                                                    </div>
+                                                    <div class="form-group">
+                                                        &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;        &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;
+                                                        <input type="radio" name="txtadr" id="txtadr" value="Work (Delivery between 10 AM -5PM)">&nbsp;&nbsp;Work (Delivery between 10 AM -5PM)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" onclick="insertaddress()" class="btn btn-info">Save and Deliver Here</button>
+                                            </div>
+                                            @*     <div class="form-group">
+                                                    <div class="row">
+                                                        <br />
+                                                        <span style="margin-left:2%; margin-top:1%;">Address Type</span><br />
+                                                        <div class="col-sm-6">
+
+                                                            <input type="radio" name="r" class="" value="Home (All day delivery)" />&nbsp;&nbsp;  Home (All day delivery)
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="radio" name="r" class="" value="Work (Delivery between 10 AM -5PM)" />&nbsp;&nbsp; Work (Delivery between 10 AM -5PM)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="button" class="btn btn-info">Save and Deliver Here</button>
+                                                </div>*@
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="panel panel-default checkout-step-02">
+                                <div class="panel-heading">
+                                    <h4 class="unicase-checkout-title">
+                                        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
+                                            <span>2</span>Address
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+
+                                                <input type="text" id="txtadname" max="10" class="form-control" placeholder="Name" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+
+                                                <input type="text" id="txtadmobile" class="form-control" placeholder="10-digit mobile number" />
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="number" id="txtadpincode" class="form-control" placeholder="Pincode" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" id="txtadLocality" class="form-control" placeholder="Locality" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <textarea style="height:15%" id="txtadAreaandStreet" class="form-control" placeholder="Address (Area and Street)"></textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+
+                                                <input type="text" id="txtadcity" class="form-control" placeholder="City" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+
+                                                <select class="form-control" id="txtadstate">
+                                                    <option value="" disabled="">--Select State--</option>
+                                                    <option value="Andaman &amp; Nicobar Islands">Andaman &amp; Nicobar Islands</option>
+                                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                    <option value="Assam">Assam</option>
+                                                    <option value="Bihar">Bihar</option>
+                                                    <option value="Chandigarh">Chandigarh</option>
+                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                    <option value="Dadra &amp; Nagar Haveli">Dadra &amp; Nagar Haveli</option>
+                                                    <option value="Daman and Diu">Daman and Diu</option>
+                                                    <option value="Delhi">Delhi</option>
+                                                    <option value="Goa">Goa</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Haryana">Haryana</option>
+                                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                    <option value="Jammu &amp; Kashmir">Jammu &amp; Kashmir</option>
+                                                    <option value="Jharkhand">Jharkhand</option>
+                                                    <option value="Karnataka">Karnataka</option>
+                                                    <option value="Kerala">Kerala</option>
+                                                    <option value="Ladakh">Ladakh</option>
+                                                    <option value="Lakshadweep">Lakshadweep</option>
+                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                    <option value="Maharashtra">Maharashtra</option>
+                                                    <option value="Manipur">Manipur</option>
+                                                    <option value="Meghalaya">Meghalaya</option>
+                                                    <option value="Mizoram">Mizoram</option>
+                                                    <option value="Nagaland">Nagaland</option>
+                                                    <option value="Odisha">Odisha</option>
+                                                    <option value="Puducherry">Puducherry</option>
+                                                    <option value="Punjab">Punjab</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Sikkim">Sikkim</option>
+                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    <option value="Telangana">Telangana</option>
+                                                    <option value="Tripura">Tripura</option>
+                                                    <option value="Uttarakhand">Uttarakhand</option>
+                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                    <option value="West Bengal">West Bengal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" id="txtadLandmark" class="form-control" placeholder="Landmark (Optional)" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" id="txtadAlternate" class="form-control" placeholder="Alternate Phone (Optional)" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Address Type</label>
+                                            <div class="row">
+
+                                                <div class="form-group">
+                                                    &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;        &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;
+                                                    <input type="radio" name="txtadr" id="txtadr" value="Home (All day delivery)">&nbsp;&nbsp; Home (All day delivery
+                                                </div>
+                                                <div class="form-group">
+                                                    &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;        &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;
+                                                    <input type="radio" name="txtadr" id="txtadr" value="Work (Delivery between 10 AM -5PM)">&nbsp;&nbsp;Work (Delivery between 10 AM -5PM)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" onclick="insertaddress()" class="btn btn-info">Save and Deliver Here</button>
+                                        </div>
+                                        @*     <div class="form-group">
+                                                <div class="row">
+                                                    <br />
+                                                    <span style="margin-left:2%; margin-top:1%;">Address Type</span><br />
+                                                    <div class="col-sm-6">
+
+                                                        <input type="radio" name="r" class="" value="Home (All day delivery)" />&nbsp;&nbsp;  Home (All day delivery)
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="radio" name="r" class="" value="Work (Delivery between 10 AM -5PM)" />&nbsp;&nbsp; Work (Delivery between 10 AM -5PM)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-info">Save and Deliver Here</button>
+                                            </div>*@
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <!-- checkout-step-02  -->
+                        <!-- checkout-step-03  -->
+                        @*<div class="panel panel-default checkout-step-03">
+                                <div class="panel-heading">
+                                    <h4 class="unicase-checkout-title">
+                                        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseThree">
+                                            <span>3</span>Shipping Information
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </div>
+                                </div>
+                            </div>*@
+                        <!-- checkout-step-03  -->
+                        <!-- checkout-step-04  -->
+                        @*<div class="panel panel-default checkout-step-04">
+                                <div class="panel-heading">
+                                    <h4 class="unicase-checkout-title">
+                                        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseFour">
+                                            <span>4</span>Shipping Method
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </div>
+                                </div>
+                            </div>*@
+                        <!-- checkout-step-04  -->
+                        <!-- checkout-step-05  -->
+                        <div class="panel panel-default checkout-step-05">
+                            <div class="panel-heading">
+                                <h4 class="unicase-checkout-title">
+                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseFive">
+                                        <span>3</span>Payment Method
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFive" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="usr">COD</label>
+                                                <input type="radio" value="COD" name="pmethod" id="COD">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="usr">Online</label>
+                                                <input type="radio" value="Online" name="pmethod" id="COD">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" class="btn btn-info" onclick="placeorder()" value="Place Order" style="height:5%;width:25%;" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- checkout-step-05  -->
+                        <!-- checkout-step-06  -->
+                        @*<div class="panel panel-default checkout-step-06">
+                                <div class="panel-heading">
+                                    <h4 class="unicase-checkout-title">
+                                        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseSix">
+                                            <span>6</span>Order Review
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseSix" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </div>
+                                </div>
+                            </div>*@
+                        <!-- checkout-step-06  -->
+
+                    </div><!-- /.checkout-steps -->
+                </div>
+                <div class="col-md-4">
+                    <!-- checkout-progress-sidebar -->
+                    <div class="checkout-progress-sidebar ">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="unicase-checkout-title">Your Checkout Progress</h4>
+                                </div>
+                                <div class="">
+                                    <ul class="nav nav-checkout-progress list-unstyled">
+                                        <li><a href="#">Checkout Products</a></li>
+                                        <li><a href="#">Address</a></li>
+                                        <li><a href="#">Payment Method</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- checkout-progress-sidebar -->
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.checkout-box -->
+        <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+        <div id="brands-carousel" class="logo-slider wow fadeInUp">
+            <div class="logo-slider-inner">
+                <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+                    <div class="item m-t-15">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item m-t-10">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand3.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand6.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                    <div class="item">
+                        <a href="#" class="image">
+                            <img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt="">
+                        </a>
+                    </div><!--/.item-->
+                </div><!-- /.owl-carousel #logo-slider -->
+            </div><!-- /.logo-slider-inner -->
+
+        </div><!-- /.logo-slider -->
+        <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+    </div><!-- /.container -->
+</div><!-- /.body-content -->
+<script src="~/assets/js/jquery-1.11.1.min.js"></script>
+<script>
+    //$(document).ready(function () {
+
+    //    $(".b1").click(function () {
+    //        var x = $(".t1").val()
+    //        x = Number(x) + 1;
+    //        $(".t1").val(x);
+
+    //    })
+
+
+    //    $(".b2").click(function () {
+    //        var x = $(".t1").val()
+    //        if (x <= 1) {
+    //            alert('Minumum Product Quantity is 1')
+    //            return;
+    //        }
+    //        else {
+    //            x = Number(x) - 1;
+    //            $(".t1").val(x);
+    //        }
+
+    //    })
+    //})
+
+
+
+
+
+    function Updatecart(obj,Type,Pid)
+    {
+        var x;//txtsalerate
+        var qty=$(obj).parent('div').find('#txtqty').val();
+        var salerate=$(obj).parent('div').find('#txtsalerate').text();
+        if(Type=="A")
+        {
+            var x = parseInt(qty)+1;
+            $(obj).parent('div').find('#txtqty').val(x);
+
+
+
+        }
+        if(Type=="S")
+        {
+            var x = parseInt(qty)-1;
+            if (x <= 0) {
+                return;
+            }
+
+            $(obj).parent('div').find('#txtqty').val(x);
+
+        }
+
+
+        var dataobject = {
+            Action: '1',
+            productid: Pid,
+            RespoCode: @Session["UserName"],
+            qty:x
+        };
+
+        $.ajax({
+            url: "@Url.Action("Updatecart", "Customer")",
+            method: "POST",
+            contentType: false,
+            processData: false,
+            data: JSON.stringify(dataobject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success:function(r)
+            {
+                alert(r.qty)
+                $(obj).parent('div').find('#txtqty').val(r.qty);
+                $(obj).parent('div').parent('div').find('#txtsalerate').text(r.Servicetype);
+                alert(r.Servicetype);
+            },
+            error:function(r)
+            {
+                alert('Error');
+            }
+
+        })
+
+    }
+
+    function insertaddress()
+    {
+        if($('#txtadname').val()=='')
+        {
+            alert('Please Enter Name');
+            $('#txtadname').focus();
+            return false;
+        }
+
+        if($('#txtadmobile').val()=='')
+        {
+            alert('Please Enter Name');
+            $('#txtadmobile').focus();
+            return false;
+        }
+
+        var dataobject=
+            {
+                name:$('#txtadname').val(),
+                StateName:  $('#txtadstate').val(),
+                mobile:$('#txtadmobile').val(),
+                PinCode:$('#txtadpincode').val(),
+                locality:$('#txtadLocality').val(),
+                Address:$('#txtadAreaandStreet').val(),
+                CityName :$('#txtadcity').val(),
+                PartyStateCode:$('#txtadstate').val(),
+                landmark:$('#txtadLandmark').val(),
+                altmobileno :$('#txtadAlternate').val(),
+                AddressType:$('#txtadr').val(),
+                CustomerId:@Session["UserName"].ToString(),
+                Action:"1",
+            };
+        $.ajax({
+            url:"@Url.Action("Insertcheckoutaddress", "Customer")",
+            method:"post",
+            contentType:false,
+            processData: false,
+            data:JSON.stringify(dataobject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success:function(r)
+            {
+                alert('Address Added')
+            },
+            error:function(r)
+            {
+                //  alert('Error')
+                alert('Address Added')
+            }
+        })
+
+
+    }
+
+    function placeorder()
+    {debugger;
+        var itemdetails = [];
+        $(".product-list-row").each(function () {
+            var row = $(this);
+            item = {};
+            item["ProductId"] = row.attr("pId");
+            item["unitrate"] = row.attr("unitrate");
+            item["Qty"] = row.find("#txtqty").val();
+            item["SaleRate"] = row.find("#txtsalerate").text();
+            itemdetails.push(item);
+        });
+        if (itemdetails.length <= 0) {
+            alert('Please Add atleast one Product!');
+            return;
+        }
+        var data = new FormData;
+        data.append("name", $('#txtadname').val());
+        data.append("StateName", $('#txtadstate').val());
+        data.append("mobile", $('#txtadmobile').val());
+        data.append("PinCode", $('#txtadpincode').val());
+        data.append("locality", $('#txtadLocality').val());
+        data.append("Address", $('#txtadAreaandStreet').val());
+        data.append("CityName", $('#txtadcity').val());
+        data.append("PartyStateCode", $('#txtadstate').val());
+        data.append("landmark", $('#txtadLandmark').val());
+        data.append("altmobileno", $('#txtadAlternate').val());
+        data.append("landmark", $('#txtadLandmark').val());
+        data.append("AddressType", $('#txtadr').val());
+        data.append("CustomerId",'@Session["UserName"].ToString()');
+        // data.append("pmethod",$('input[name="pmethod"]:cheacked').val());
+        //Action:"1",
+        data.append("Action","1")
+
+
+        data.append("VariationList", JSON.stringify(itemdetails));
+
+        $("#showSpinner").show();
+
+        $.ajax({
+            url: "../Customer/finalPlaceorder",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (r) {
+                //if (r.strId == '1') {
+                alert(r.msg);
+                location.reload();
+                $("#showSpinner").hide();
+                //alert('ok');
+
+                // }
+                //else {
+                //    alert(r.msg);
+                //    $("#showSpinner").hide();
+                //}
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("#showSpinner").hide();
+            }
+        });
+    }
+
+</script>
+<!-- ============================================================= FOOTER ============================================================= -->
+<!-- ============================================================= FOOTER ============================================================= -->

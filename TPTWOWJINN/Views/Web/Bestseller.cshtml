@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Bestseller";
+    Layout = "~/Views/Shared/_webLayouts.cshtml";
+}
+@using System.Data;
+@model MDYOS.Models.PropertyClass
+<div class="container" style="background-color:white;">
+    <br />
+    <h2>Motivated Management</h2>
+
+    <p style="font-size:15px;">
+        Another stumbling block facing many entrepreneurs wanting to expand is finding and retaining good unit managers. All too often,
+        a business owner spends months looking for and training a new manager, only to see them leave or, worse yet, get hired away by a competitor.
+        And hired managers are only employees who may or may not have a genuine commitment to their jobs, which makes supervising their work from a distance a challenge.
+
+        But franchising allows the business owner to overcome these problems by substituting an owner for the manager. No one is more
+        motivated than someone who is materially invested in the success of the operation.
+        Your franchisee will be an owner -- often with his life’s savings invested in the business. And his
+        compensation will come largely in the form of profits.
+
+        The combination of these factors will have several positive effects on unit level performance.
+    </p>
+    <!-- ============================================== BEST SELLER ============================================== -->
+
+    <div class="best-deal wow fadeInUp outer-bottom-xs">
+        <h3 class="section-title">Best seller</h3>
+        <div class="sidebar-widget-body outer-top-xs">
+            <div class="owl-carousel best-seller custom-carousel owl-theme outer-top-xs">
+                <div class="item">
+                    <div class="products best-product">
+                        @if (Model.dt != null && Model.dt.Rows.Count > 0)
+                        {
+                            string ext = "";
+                            foreach (DataRow item in Model.dt.Rows)
+                            {
+                                ext = System.IO.Path.GetExtension(item["TANDoc"].ToString());
+                                <div class="product">
+                                    <div class="product-micro">
+                                        <div class="row product-micro-row">
+                                            <div class="col col-xs-5">
+                                                <div class="product-image">
+
+                                                    <div class="image">
+                                                        <a href="#">
+                                                            @if (ext == ".png" || ext == ".jpg" || ext == ".gif" ||ext==".docx")
+                                                            {
+
+                                                                <img src="../RetailerDocs/@item["TANDoc"]" style="height: 100px;width: 102px;" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <video style="height: 100px;width: 102px;" src="../RetailerDocs/@item["TANDoc"]" controls></video>
+
+                                                            }
+
+                                                        </a>
+                                                    </div>
+                                                    <!-- /.image -->
+
+                                                </div>
+                                                <!-- /.product-image -->
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="col2 col-xs-7">
+                                                <div class="product-info">
+                                                    <h3 class="name"><a href="#">@item["RetailerName"]</a></h3>
+                                                    @*<div class="rating rateit-small"></div>*@
+                                                    <div class="product-price"> <span class="price"> @item["BusinessName"] </span> </div>
+                                                    <!-- /.product-price -->
+                                                    <h3 class="name"><a href="#">@item["Address"]</a></h3>
+                                                </div>
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <!-- /.product-micro-row -->
+                                    </div>
+                                    <!-- /.product-micro -->
+
+                                </div>
+                            }
+
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.sidebar-widget-body -->
+    </div>
+    <!-- /.sidebar-widget -->
+
+
+    <br />
+</div>
+<br />
+
